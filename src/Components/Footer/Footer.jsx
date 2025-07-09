@@ -24,26 +24,19 @@ const Footer = () => {
       </motion.li>
       <motion.li>
         <NavLink
-          to="/bookshelf"
+          to="/shop"
           className="footer-navlink"
         >
-          Bookshelf
+          Shop
         </NavLink>
       </motion.li>
-      <motion.li >
-        <NavLink
-          to="/add-book"
-          className="footer-navlink"
-        >
-          Add Book
-        </NavLink>
-      </motion.li>
+     
       <motion.li variants={navItemVariants}>
         <NavLink
-          to="/my-books"
+          to="/about-us"
           className="footer-navlink"
         >
-          My Books
+          About Us
         </NavLink>
       </motion.li>
     </>
@@ -69,8 +62,7 @@ const Footer = () => {
             
             </div>
             <p className="mt-3 max-w-sm text-sm md:text-base text-gray-700">
-              Your digital reading companion. Create, organize, and share your
-              book collection with fellow book lovers around the world.
+             Your everyday deal destination. Discover, compare, and grab the best offers from trusted vendors across bangladesh.
             </p>
              <h3 className="text-primary font-semibold my-5 text-lg md:text-xl">Follow Us</h3>
             <div className="flex gap-3">
@@ -111,7 +103,7 @@ const Footer = () => {
             <h3 className="text-primary font-semibold mb-4 text-xl md:text-2xl text-center md:text-start">Contact Us</h3>
             <ul className="space-y-2 text-grey-700">
               <li className="flex items-center gap-3 justify-center md:justify-start text-sm md:text-base">
-                <FaLocationArrow className="text-accent text-lg md:text-xl" /> <span>123 Bazar Mall Street, Doha City</span>
+                <FaLocationArrow className="text-accent text-lg md:text-xl" /> <span>123 Bazar Mall Street, Dhaka City</span>
               </li>
               <li className="flex items-center gap-3 justify-center md:justify-start text-sm md:text-base">
                 <FaEnvelope className="text-accent text-lg md:text-xl"/><span> tellus@tazadeal.com</span>

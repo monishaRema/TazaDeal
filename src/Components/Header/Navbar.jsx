@@ -97,7 +97,7 @@ const Navbar = () => {
         animate="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={navVarient}
-        className="fixed top-0 left-0 right-0 w-full  bg-[#00000030] backdrop-blur-xl text-white z-50"
+        className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-primary/70 via-green-700 to-primary  text-white z-50"
       >
         <div className="container mx-auto px-5">
           <div className="navbar px-0 flex justify-between items-center py-3">
@@ -131,48 +131,30 @@ const Navbar = () => {
                           Home
                         </NavLink>
                       </motion.li>
+                       <motion.li
+                        onClick={() => setNavOpen(false)}
+                        variants={cardVariants}
+                      >
+                        <NavLink className={"navlink"} to="/shop">
+                          Shop
+                        </NavLink>
+                      </motion.li>
+
                       <motion.li
                         onClick={() => setNavOpen(false)}
                         variants={cardVariants}
                       >
-                        <NavLink className={"navlink"} to="/bookshelf">
-                          Bookshelf
-                        </NavLink>
-                      </motion.li>
-                        <motion.li
-                        onClick={() => setNavOpen(false)}
-                        variants={cardVariants}
-                      >
                         <NavLink className={"navlink"} to="/about">
-                         About Us
+                          About Us
                         </NavLink>
                       </motion.li>
-                      {user && (
-                        <>
-                          <motion.li
-                            onClick={() => setNavOpen(false)}
-                            variants={cardVariants}
-                          >
-                            <NavLink className={"navlink "} to="/add-book">
-                              Add Book
-                            </NavLink>
-                          </motion.li>
-                          <motion.li
-                            onClick={() => setNavOpen(false)}
-                            variants={cardVariants}
-                          >
-                            <NavLink className={"navlink"} to="/my-books">
-                              My Books
-                            </NavLink>
-                          </motion.li>
-                        </>
-                      )}
+                      {user && <></>}
                     </motion.ul>
                   )}
                 </div>
               </div>
               <Link className="" to="/">
-                  <Logo></Logo>
+                <Logo nav="nav" ></Logo>
               </Link>
             </div>
 
@@ -186,14 +168,15 @@ const Navbar = () => {
                     Home
                   </NavLink>
                 </motion.li>
-                <motion.li variants={navItemVariants}>
+                           <motion.li variants={navItemVariants}>
                   <NavLink
-                    to="/bookshelf"
+                    to="/shop"
                     className="navlink text-base md:text-lg font-medium inline-block py-3 px-6 "
                   >
-                    Bookshelf
+                    Shop
                   </NavLink>
                 </motion.li>
+
                 <motion.li variants={navItemVariants}>
                   <NavLink
                     to="/about"
@@ -202,26 +185,7 @@ const Navbar = () => {
                     About Us
                   </NavLink>
                 </motion.li>
-                {user && (
-                  <>
-                    <motion.li variants={navItemVariants}>
-                      <NavLink
-                        to="/add-book"
-                        className="navlink text-base md:text-lg font-medium inline-block py-3 px-6 "
-                      >
-                        Add Book
-                      </NavLink>
-                    </motion.li>
-                    <motion.li variants={navItemVariants}>
-                      <NavLink
-                        to="/my-books"
-                        className="navlink text-base md:text-lg font-medium inline-block py-3 px-6 "
-                      >
-                        My Books
-                      </NavLink>
-                    </motion.li>
-                  </>
-                )}
+                {user && <></>}
               </ul>
               <motion.div
                 variants={navItemVariants}
@@ -229,13 +193,17 @@ const Navbar = () => {
               >
                 {user && (
                   <>
-                    <Link
-                      to="/user-profile"
+                  <Link
                       className="size-10 rounded-full overflow-hidden"
                       data-tooltip-id="profile-tooltip"
                     >
                       <img src={photoUrl} alt="" className="size-full" />
                     </Link>
+                  <Link className="nav-btn">
+
+                    Dashboard
+                  </Link>
+                    
                     <Tooltip
                       id="profile-tooltip"
                       place="bottom"
@@ -249,7 +217,7 @@ const Navbar = () => {
                 )}
 
                 {user ? (
-                 <Logout classes={'nav-btn'}></Logout>
+                  <Logout classes={"nav-btn-alt"}></Logout>
                 ) : (
                   <>
                     <Link
