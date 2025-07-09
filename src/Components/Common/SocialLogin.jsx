@@ -5,8 +5,6 @@ import { useLocation, useNavigate } from 'react-router';
 import { FaGoogle } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
 
-
-
 const SocialLogin = () => {
  const { GoogleSignIn, setUser } = useAuth();
  const axios = useAxios();
@@ -26,21 +24,12 @@ const SocialLogin = () => {
         axios.post(`/auth/jwt`, userData)
         .then((res) => {
              localStorage.setItem("access-token", res.data.token);
-            if (res.data.success == true) {
-              Swal.fire({
-                position: "center center",
-                icon: "success",
-                title: "You have logged in successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-
               if (locationState) {
                 navigate(locationState);
               } else {
                 navigate("/");
               }
-            }
+            
           })
           .catch((err) => console.log(err.message));
       })
