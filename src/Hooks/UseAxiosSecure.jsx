@@ -1,32 +1,44 @@
-import axios from 'axios';
-import { use, useEffect} from 'react';
-import { baseUrl } from '../Libs/Utility';
-import { AuthContext } from '../Contex/AuthContex';
+// hooks/useAxiosSecure.js
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../Libs/Utility";
+import useAuth from "./useAuth";
 
-const axiosInstance = axios.create({
-  baseURL: baseUrl,
-});
+const axiosSecure = axios.create({
+    baseUrl,
+  });
 
-const UseAxiosSecure = () => {
-  const { user } = use(AuthContext);
+
+const useAxiosSecure = () => {
+  const navigate = useNavigate();
+  const {user, logOut} = useAuth();
 
   useEffect(() => {
-    if (!user) return;
 
-    const requestInterceptor = axiosInstance.interceptors.request.use(async (config) => {
-      const token = await user.getIdToken();
+    axiosSecure.interceptors.request.use((config) => {
+      const token = localStorage.getItem("access-token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     });
 
-    return () => {
-      axiosInstance.interceptors.request.eject(requestInterceptor);
-    };
-  }, [user]);
 
-  return axiosInstance;
+    axiosSecure.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          logOut();
+          localStorage.removeItem("access-token");
+          navigate("/auth/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+  }, [axiosSecure, navigate]);
+
+  return axiosSecure;
 };
 
-export default UseAxiosSecure;
+export default useAxiosSecure;

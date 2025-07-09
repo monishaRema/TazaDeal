@@ -28,8 +28,10 @@ const AuthLayout = () => {
     <section className="register py-15 min-h-screen flex justify-center items-center">
       <div className="container mx-auto px-5">
 
-        <motion.div className="max-w-5xl mx-auto flex flex-col-reverse md:flex-row bg-white border-2 border-[#faf5ee20] text-gray-100 shadow-lg rounded-2xl gap-5 items-center overflow-hidden">
-          <motion.div className="img-box w-full md:w-1/2 h-auto md:h-[800px]"></motion.div>
+        <motion.div className="max-w-5xl mx-auto flex flex-col md:flex-row bg-white text-gray-100 shadow-lg rounded-2xl gap-5 overflow-hidden">
+          <motion.div className="img-box w-full md:w-1/2 h-auto flex items-end">
+            <img src="https://desicart.co.uk/cdn/shop/files/Category_0010_Group_1_copy.jpg" alt="Taza Deal auth image" className="w-full h-full object-cover" />
+          </motion.div>
           <motion.div className="w-full md:w-1/2">
             <Outlet></Outlet>
           </motion.div>

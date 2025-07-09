@@ -1,17 +1,19 @@
 import React, { use, useState } from "react";
-import { AuthContext } from "../../Contex/AuthContex";
+
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { baseUrl, siteTitle } from "../../Libs/Utility";
 import { motion } from "framer-motion";
 import SocialLogin from "../../Components/Common/SocialLogin";
+import useAuth from "../../Hooks/useAuth";
+import useAxios from "../../Hooks/useAxios";
+import Logo from "../../Components/UI/Logo";
 
 const Register = () => {
-  const { CreateUser, setUser, UpdateUser, user } =
-    use(AuthContext);
+  const { CreateUser, setUser, UpdateUser, user } = useAuth();
+  const axios = useAxios(); 
   const [errorMessage, setErrorMessage] = useState("");
   const [showpassword, setShowPassword] = useState(false);
   const location = useLocation();
@@ -75,12 +77,10 @@ const Register = () => {
         const userData = {
           name: displayName,
           email,
-          photo: photoURL,
+          photoURL,
         };
-        axios
-          .post(`${baseUrl}/user`, userData)
+        axios.post(`/auth/jwt`, userData)
           .then((res) => {
-            console.log(res.data);
             if (res.data.insertedId) {
               Swal.fire({
                 position: "center",
@@ -89,6 +89,8 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
+          
+              localStorage.setItem("access-token", res.data.token);
               form.reset();
 
               if (locationState) {
@@ -139,17 +141,18 @@ const Register = () => {
         <title> {siteTitle} | Register</title>
       </Helmet>
       <form onSubmit={handleRegister}>
+                <div className="mb-8"><Logo></Logo></div>
         <motion.h1
           variants={cardVariants}
-          className="text-3xl md:text-4xl font-bold mb-1 text-primary"
+          className="text-3xl md:text-4xl font-bold mb-2 text-primary"
         >
           Register
         </motion.h1>
         <motion.p
           variants={cardVariants}
-          className="mb-7 theme-p  text-gray-600"
+          className="mb-7 theme-p  text-gray-500"
         >
-          Start your reading journey with Book Case
+         Get started with TazaDeal — your gateway to smarter shopping.
         </motion.p>
 
         {/* Form Fields */}

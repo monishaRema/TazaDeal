@@ -3,6 +3,7 @@ import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
 import { useLocation, useNavigate } from 'react-router';
 import { FaGoogle } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
 
 
 
@@ -18,21 +19,21 @@ const SocialLogin = () => {
       .then((result) => {
         setUser(result.user);
         const userData = {
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          photoURL: result?.user?.photoURL,
         };
-        axios
-          .post(`/user`, userData)
-          .then((res) => {
+        axios.post(`/auth/jwt`, userData)
+        .then((res) => {
+             localStorage.setItem("access-token", res.data.token);
             if (res.data.success == true) {
-            //   Swal.fire({
-            //     position: "center center",
-            //     icon: "success",
-            //     title: "You have logged in successfully",
-            //     showConfirmButton: false,
-            //     timer: 1500,
-            //   });
+              Swal.fire({
+                position: "center center",
+                icon: "success",
+                title: "You have logged in successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
 
               if (locationState) {
                 navigate(locationState);

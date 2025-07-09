@@ -8,11 +8,14 @@ import { Slide, toast } from "react-toastify";
 import { motion } from "framer-motion";
 import SocialLogin from "../../Components/Common/SocialLogin";
 import { siteTitle } from "../../Libs/Utility";
+import useAxios from "../../Hooks/useAxios";
+import Logo from "../../Components/UI/Logo";
 
 const Login = () => {
   const [showpassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { Login, GoogleSignIn, setUser } = use(AuthContext);
+  const { Login, setUser } = use(AuthContext);
+  const axios = useAxios();
 
   const location = useLocation();
   const locationState = location.state;
@@ -54,19 +57,27 @@ const Login = () => {
     Login(email, password)
       .then((result) => {
         setUser(result.user);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Login Successfully",
-          showConfirmButton: false,
-          timer: 1500,
+        const userData = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          photoURL: result?.user?.photoURL,
+        };
+        axios.post(`/auth/jwt`, userData).then((res) => {
+          console.log(res);
+          localStorage.setItem("access-token", res.data.token);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Login Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          if (locationState) {
+            navigate(locationState);
+          } else {
+            navigate("/");
+          }
         });
-
-        if (locationState) {
-          navigate(locationState);
-        } else {
-          navigate("/");
-        }
       })
       .catch(() => {
         toast.error("Please provide valid credentials", {
@@ -117,18 +128,21 @@ const Login = () => {
         <title>{siteTitle} | Login</title>
       </Helmet>
 
+     
+
       <form onSubmit={handleLogin}>
+        <div className="mb-8"><Logo></Logo></div>
         <motion.h1
           variants={cardVariants}
-          className="text-3xl md:text-4xl font-bold mb-1 text-primary"
+          className="text-3xl md:text-4xl font-bold mb-2 text-primary"
         >
           Login
         </motion.h1>
         <motion.p
           variants={cardVariants}
-          className="mb-7 theme-p text-gray-600"
+          className="mb-7 theme-p text-gray-500"
         >
-          Welcome back to your market  journey
+          Sign in to continue your journey with TazaDeal
         </motion.p>
 
         <motion.div variants={cardVariants} className="form-group mb-5">
@@ -188,6 +202,10 @@ const Login = () => {
           </motion.button>
         </motion.div>
       </form>
+
+   
+
+
 
       <motion.p
         variants={cardVariants}

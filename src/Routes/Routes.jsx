@@ -5,6 +5,7 @@ import AuthLayout from "../Layout/AuthLayout";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
+import AddProduct from "../Pages/Dashboard/Vendor/AddProduct";
 
 
 
@@ -37,10 +38,13 @@ export const routes = createBrowserRouter([
     ]
   },
   {
-    path: "/dashboard",
-    element:<DashboardLayout></DashboardLayout>,
-    children: [
-
-    ]
-  }
+  path: "/dashboard",
+  element: <DashboardLayout />,
+  children: [
+    {
+      path: "add-product", // ✅ just relative path
+      element: <AddProduct />
+    }
+  ]
+}
 ]);
