@@ -7,11 +7,18 @@ import "./index.css";
 import "./app.css";
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { Slide, ToastContainer } from "react-toastify";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+       <QueryClientProvider client={queryClient}>
     <HelmetProvider>
       <AuthProvider>
         <RouterProvider router={routes} />
@@ -30,5 +37,6 @@ createRoot(document.getElementById("root")).render(
         transition={Slide}
       />
     </HelmetProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000'
+const baseURL = 'http://localhost:3000'
 const siteTitle = "Taza Deal"
 
-export {baseUrl, siteTitle}
+export {baseURL, siteTitle}

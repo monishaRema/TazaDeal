@@ -105,7 +105,7 @@ const Navbar = () => {
               <div className="mobile-menu block lg:hidden">
                 <button
                   className={`text-2xl rotate-180 ${
-                    navOpen ? "text-violet-500" : ""
+                    navOpen ? "text-accent" : ""
                   }`}
                   onClick={() => setNavOpen((prev) => !prev)}
                 >
@@ -135,8 +135,8 @@ const Navbar = () => {
                         onClick={() => setNavOpen(false)}
                         variants={cardVariants}
                       >
-                        <NavLink className={"navlink"} to="/shop">
-                          Shop
+                        <NavLink className={"navlink"} to="/all-products">
+                          All Products
                         </NavLink>
                       </motion.li>
 
@@ -170,10 +170,10 @@ const Navbar = () => {
                 </motion.li>
                            <motion.li variants={navItemVariants}>
                   <NavLink
-                    to="/shop"
+                    to="/all-products"
                     className="navlink text-base md:text-lg font-medium inline-block py-3 px-6 "
                   >
-                    Shop
+                    All Products
                   </NavLink>
                 </motion.li>
 
@@ -199,7 +199,7 @@ const Navbar = () => {
                     >
                       <img src={photoUrl} alt="" className="size-full" />
                     </Link>
-                  <Link className="nav-btn">
+                  <Link to={'/dashboard'} className="nav-btn">
 
                     Dashboard
                   </Link>

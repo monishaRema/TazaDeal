@@ -6,7 +6,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import AddProduct from "../Pages/Dashboard/Vendor/AddProduct";
-import Shop from "../Pages/Shop";
+import AllProducts from "../Pages/AllProducts";
 
 
 
@@ -21,8 +21,8 @@ export const routes = createBrowserRouter([
         index: true,
         Component: Home
       },{
-        path: "shop",
-        element: <Shop></Shop>
+        path: "all-products",
+        element: <AllProducts></AllProducts>
       }
     ]
   },

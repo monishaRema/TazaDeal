@@ -4,7 +4,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
-import { baseUrl, siteTitle } from "../../Libs/Utility";
+import { baseURL, siteTitle } from "../../Libs/Utility";
 import { motion } from "framer-motion";
 import SocialLogin from "../../Components/Common/SocialLogin";
 import useAuth from "../../Hooks/useAuth";

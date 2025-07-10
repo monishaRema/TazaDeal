@@ -1,9 +1,9 @@
 
 import axios from 'axios';
-import { baseUrl } from '../Libs/Utility';
+import { baseURL } from '../Libs/Utility';
 
 const axiosInstance = axios.create({
-    baseURL: `${baseUrl}`
+    baseURL: `${baseURL}`
 });
 
 

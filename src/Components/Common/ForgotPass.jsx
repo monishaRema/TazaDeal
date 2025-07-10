@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { AuthContext } from "../Contex/AuthContex";
+import { AuthContext } from "../../Contex/AuthContex";
 import { useLocation } from "react-router";
 import { Slide, toast } from "react-toastify";
 import { Helmet } from "@dr.pogodin/react-helmet";

@@ -24,10 +24,10 @@ const Footer = () => {
       </motion.li>
       <motion.li>
         <NavLink
-          to="/shop"
+          to="/all-products"
           className="footer-navlink"
         >
-          Shop
+          All Products
         </NavLink>
       </motion.li>
      

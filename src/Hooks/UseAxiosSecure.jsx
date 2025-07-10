@@ -1,18 +1,18 @@
 // hooks/useAxiosSecure.js
 import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { baseUrl } from "../Libs/Utility";
+import { useNavigate } from "react-router";
+import { baseURL } from "../Libs/Utility";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-    baseUrl,
+    baseURL,
   });
 
 
 const useAxiosSecure = () => {
   const navigate = useNavigate();
-  const {user, logOut} = useAuth();
+  const {logOut} = useAuth();
 
   useEffect(() => {
 
