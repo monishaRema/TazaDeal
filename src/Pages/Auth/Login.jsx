@@ -75,10 +75,10 @@ const Login = () => {
    
           navigate("/dashboard");
         })
-        .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
+        .catch(err => ShowToast("error", err.message));
         
       })
-      .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
+      .catch(err => ShowToast("error", "Please Provide valid credentials"))
   };
 
   const containerVariants = {

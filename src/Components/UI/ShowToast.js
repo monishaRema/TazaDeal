@@ -1,7 +1,8 @@
 import { Slide, toast } from "react-toastify";
 
 const ShowToast = (status, message) => {
-  status == "error" &&
+  {
+    status == "error" &&
     toast.error(message, {
       position: "top-center",
       autoClose: 5000,
@@ -13,8 +14,9 @@ const ShowToast = (status, message) => {
       theme: "light",
       transition: Slide,
     });
+  }
 
-  status == "success" &&
+  {status == "success" &&
     toast.success(message, {
       position: "top-center",
       autoClose: 5000,
@@ -26,6 +28,7 @@ const ShowToast = (status, message) => {
       theme: "light",
       transition: Slide,
     });
+  }
 };
 
 export default ShowToast;

@@ -26,11 +26,11 @@ const SocialLogin = () => {
             navigate("/dashboard");
           })
           .catch((err) => (
-            <ShowToast status="error" message={err.message}></ShowToast>
+            ShowToast("error", err.message)
           ));
       })
       .catch((err) => (
-        <ShowToast status="error" message={err.message}></ShowToast>
+       ShowToast("error", err.message)
       ));
   };
 

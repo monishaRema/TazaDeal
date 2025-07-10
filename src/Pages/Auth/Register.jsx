@@ -11,6 +11,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Logo from "../../Components/UI/Logo";
 import ShowToast from "../../Components/UI/ShowToast";
+import { siteTitle } from "../../Libs/Utility";
 
 const Register = () => {
   const { CreateUser, setUser, UpdateUser, user } = useAuth();
@@ -94,9 +95,9 @@ const Register = () => {
               navigate("/dashboard");
             }
           })
-          .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
+          .catch(err => ShowToast("error", err.message));
       })
-    .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
+    .catch(err => ShowToast("error", err.message));
   };
 
   const containerVariants = {
