@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ShowToast from "../../../Components/UI/ShowToast";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import Pagination from "../../../Components/UI/Pagination";
 
 const roles = ["user", "vendor", "admin"];
 const USERS_PER_PAGE = 10;
@@ -22,7 +22,7 @@ const ManageUsers = () => {
     queryKey: ["allUsers", page],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/users/admin?page=${page}&limit=${USERS_PER_PAGE}`
+        `/admin?page=${page}&limit=${USERS_PER_PAGE}`
       );
       return data;
     },
@@ -34,7 +34,7 @@ const ManageUsers = () => {
 
   const { mutate: updateUser } = useMutation({
     mutationFn: async ({ email, update }) => {
-      return await axiosSecure.patch(`/users/admin/update-user/${email}`, update);
+      return await axiosSecure.patch(`/admin/update-user/${email}`, update);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["allUsers"]);
@@ -100,6 +100,7 @@ const ManageUsers = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Role</th>
+                  <th>Update Role</th>
                   <th>Vendor Status</th>
                   <th>Actions</th>
                 </tr>
@@ -115,15 +116,16 @@ const ManageUsers = () => {
                         className="size-10 rounded-md object-cover"
                       />
                     </td>
-                    <td>{u.name}</td>
-                    <td>{u.email}</td>
+                    <td>{u?.name}</td>
+                    <td>{u?.email}</td>
+                    <td>{u?.role}</td>
                     <td>
-                      {u.role !== "admin" ? (
+                      {u?.role !== "admin" && (
                         <select
                           className="select select-sm select-bordered"
-                          value={u.role}
+                          value={u?.role}
                           onChange={(e) =>
-                            handleRoleChange(u.email, e.target.value)
+                            handleRoleChange(u?.email, e.target.value)
                           }
                         >
                           {roles.map((r) => (
@@ -132,29 +134,27 @@ const ManageUsers = () => {
                             </option>
                           ))}
                         </select>
-                      ) : (
-                        <span>{u.role}</span>
                       )}
                     </td>
                     <td className="capitalize">
-                      {u.vendorRequestStatus || ""}
-                      {u.vendorRequestStatus === "rejected" && (
+                      {u?.vendorRequestStatus || ""}
+                      {u?.vendorRequestStatus === "rejected" && (
                         <div className="text-xs text-red-500">
-                          {u.vendorRejectionReason}
+                          {u?.vendorRejectionReason}
                         </div>
                       )}
                     </td>
                     <td className="flex gap-1">
-                      {u.vendorRequestStatus === "pending" && (
+                      {u?.vendorRequestStatus === "pending" && (
                         <>
                           <button
-                            onClick={() => handleApprove(u.email)}
+                            onClick={() => handleApprove(u?.email)}
                             className="btn btn-xs btn-primary"
                           >
                             Approve
                           </button>
                           <button
-                            onClick={() => setRejectTarget(u.email)}
+                            onClick={() => setRejectTarget(u?.email)}
                             className="btn btn-xs btn-error text-gray-800"
                           >
                             Reject
@@ -170,42 +170,7 @@ const ManageUsers = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center mt-6 gap-2 items-center flex-wrap">
-              <button
-                className="btn btn-sm"
-                disabled={page === 1}
-                onClick={() => setPage((p) => p - 1)}
-              >
-                <FaAngleLeft />
-              </button>
-
-              {[...Array(totalPages).keys()].map((num) => {
-                const pageNum = num + 1;
-                return (
-                  <button
-                    key={pageNum}
-                    onClick={() => setPage(pageNum)}
-                    className={`rounded-full size-8 flex justify-center items-center border border-gray-300 text-sm font-medium 
-                      ${
-                        page === pageNum
-                          ? "bg-primary text-white"
-                          : "hover:bg-gray-200 text-gray-700"
-                      }
-                    `}
-                  >
-                    {pageNum}
-                  </button>
-                );
-              })}
-
-              <button
-                className="btn btn-sm"
-                disabled={page === totalPages}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                <FaAngleRight />
-              </button>
-            </div>
+             <Pagination totalPages={totalPages} page={page} setPage={setPage}></Pagination>
           )}
         </>
       )}

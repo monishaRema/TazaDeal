@@ -1,11 +1,161 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import Pagination from "../../../Components/UI/Pagination";
+import { format } from "date-fns";
+
+const PRODUCTS_PER_PAGE = 10;
 
 const MyProducts = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const [page, setPage] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["vendorProducts", page],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/vendor/my-products?page=${page}&limit=${PRODUCTS_PER_PAGE}`
+      );
+      return res.data;
+    },
+  });
+
+  const { mutate: deleteProduct } = useMutation({
+    mutationFn: async (id) => {
+      return await axiosSecure.delete(`/vendor/delete-product/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["vendorProducts"]);
+      Swal.fire("Deleted!", "Product has been deleted.", "success");
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to delete the product.", "error");
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(id);
+      }
+    });
+  };
+
+  const totalPages = data?.totalPages || 1;
+
+  return (
+    <div className="p-5 md:p-8 bg-white rounded-xl">
+      <h2 className="text-2xl md:text-3xl text-primary font-bold mb-4">
+        My Products
+      </h2>
+
+      <div className="overflow-x-auto">
+        <table className="table table-zebra w-full">
+          <thead className="bg-base-200">
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Date</th>
+
+              <th>Price</th>
+              <th>Market</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.products?.map((product, index) => (
+              <tr key={product._id}>
+                <td>{(page - 1) * PRODUCTS_PER_PAGE + index + 1}</td>
+                <td>
+                  <img
+                    src={product?.image}
+                    alt={product?.itemName}
+                    className="size-10 rounded-md object-cover"
+                  />
+                </td>
+                <td>{product?.itemName}</td>
+                <td>{format(new Date(product?.date), "dd MMM yyyy")}</td>
+                <td>{product?.priceUnit}</td>
+                <td>{product?.marketName}</td>
+                <td className="capitalize">{product?.status}</td>
+                <td className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedProduct(product)}
+                    className="btn btn-xs btn-outline"
+                  >
+                    <FaEye />
+                  </button>
+                  <Link
+                    to={`/dashboard/update-product/${product._id}`}
+                    className="btn btn-xs btn-primary"
+                  >
+                    <FaEdit />
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="btn btn-xs btn-error"
+                  >
+                    <FaTrash />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <Pagination totalPages={totalPages} page={page} setPage={setPage}></Pagination>
+      )}
+
+      {/* Modal for viewing product */}
+      {selectedProduct && (
+        <dialog open className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-2">
+              {selectedProduct.itemName}
+            </h3>
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.itemName}
+              className="rounded-lg w-full mb-4"
+            />
+            <p><strong>Price:</strong> {selectedProduct.priceUnit}</p>
+            <p><strong>Category:</strong> {selectedProduct.category}</p>
+            <p><strong>Status:</strong> {selectedProduct.status}</p>
+            <p><strong>Description:</strong> {selectedProduct.itemDescription}</p>
+
+            <div className="modal-action">
+              <form method="dialog">
+                <button
+                  className="btn btn-sm btn-outline"
+                  onClick={() => setSelectedProduct(null)}
+                >
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </div>
+  );
 };
 
 export default MyProducts;
