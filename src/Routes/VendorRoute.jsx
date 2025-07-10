@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Navigate, useLocation } from 'react-router';
 
-import useUserRole from '../Hooks/useUserRole';
+import useUserData from '../Hooks/useUserData';
 import LoadingSpinner from '../Components/UI/LoadingSpinner';
 
 const AdminRoute = ({children}) => {
 
-    const {role, isLoading} = useUserRole();
+    const {role, isLoading} = useUserData();
     const location= useLocation();
 
 

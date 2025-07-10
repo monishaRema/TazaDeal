@@ -23,7 +23,7 @@ import {
   FaBoxOpen,
 } from "react-icons/fa";
 
-import useUserRole from "../../../Hooks/useUserRole";
+import useUserData from "../../../Hooks/useUserData";
 import LoadingSpinner from "../../../Components/UI/LoadingSpinner";
 import Logout from "../../../Components/Common/Logout";
 import LOGO from "../../../assets/logo.svg"
@@ -67,7 +67,7 @@ const SidebarLink = ({ to, icon, label }) => {
 };
 
 const DashboardSidebar = () => {
-  const { role, isLoading } = useUserRole();
+  const { role, isLoading } = useUserData();
   if (isLoading) return <LoadingSpinner />;
 
   return (
