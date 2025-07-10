@@ -3,19 +3,30 @@ import { Outlet } from 'react-router';
 import DashboardSidebar from '../Pages/Dashboard/Sidebar/DashboardSidebar';
 
 const DashboardLayout = () => {
-    return (
-        <main>
-            <div className="flex relative">
-                <aside className='fixed left-0 top-0'><DashboardSidebar></DashboardSidebar></aside>
-                <div className='main-section bg-white p-5 flex-1'>
-                    <Outlet></Outlet>
-                </div>
-            </div>
+  return (
+    <main className="min-h-screen text-gray-800">
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-15 md:w-65 bg-white min-h-screen fixed top-0 left-0 z-40 px-2 md:px-5">
+          <DashboardSidebar />
+        </aside>
 
-        </main>
+        {/* Main content */}
+        <div className="flex-1 ml-15 md:ml-65 transition-all duration-300">
+          {/* Header */}
+          <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+            <h1 className="text-lg font-semibold">Welcome back, Monisha</h1>
+           
+          </header>
 
-            
-    );
+          {/* Main Outlet */}
+          <section className="p-6">
+            <Outlet />
+          </section>
+        </div>
+      </div>
+    </main>
+  );
 };
 
 export default DashboardLayout;

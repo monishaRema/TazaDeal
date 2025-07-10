@@ -13,39 +13,7 @@ import Logout from "../Common/Logout";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const { user, LogOut, setUser } = use(AuthContext);
-
-  const handleLogOut = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#00A8CC",
-      confirmButtonText: "Yes, Logout!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        LogOut()
-          .then(() => {
-            setUser(null);
-          })
-          .catch((err) => {
-            toast.error(err.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Slide,
-            });
-          });
-      }
-    });
-  };
-
+  const { user} = use(AuthContext);
   const photoUrl = user && user.photoURL ? user.photoURL : UserAvator;
 
   const navVarient = {
@@ -217,7 +185,7 @@ const Navbar = () => {
                 )}
 
                 {user ? (
-                  <Logout classes={"nav-btn-alt"}></Logout>
+                  <Logout classes={"nav-btn-alt"}>Logout</Logout>
                 ) : (
                   <>
                     <Link
