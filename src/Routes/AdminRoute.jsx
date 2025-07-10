@@ -1,20 +1,22 @@
-import React, { use } from 'react';
+import React from 'react';
 
 import { Navigate, useLocation } from 'react-router';
-import { AuthContext } from '../Contex/AuthContex';
+
+import useUserRole from '../Hooks/useUserRole';
+import LoadingSpinner from '../Components/UI/LoadingSpinner';
 
 const AdminRoute = ({children}) => {
 
-    const {user,loading} =use(AuthContext)
+    const {role, isLoading} = useUserRole();
     const location= useLocation();
 
 
 
-    if(loading){
-        return <div className="container mx-auto text-center py-15"><span className="loading loading-dots loading-2xl"></span></div>
+    if(isLoading){
+        return <LoadingSpinner></LoadingSpinner>
     }
-    if(!user){
-        return <Navigate state={location.pathname}  to="/login"></Navigate>
+    if(role != 'admin'){
+        return <Navigate state={location.pathname}  to="/auth/login"></Navigate>
     }
     return children
 };

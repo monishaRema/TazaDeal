@@ -79,7 +79,7 @@ const DashboardSidebar = () => {
 
       {role === "admin" && (
         <>
-          <SidebarLink to="/dashboard/all-users" icon={<FaUsersCog />} label="Manage Users" />
+          <SidebarLink to="/dashboard/manage-users" icon={<FaUsersCog />} label="Manage Users" />
           <SidebarLink to="/dashboard/site-settings" icon={<FaCog />} label="Settings" />
         </>
       )}
@@ -92,8 +92,12 @@ const DashboardSidebar = () => {
       )}
 
       {role === "user" && (
+        <>
+        <SidebarLink to="/dashboard/be-vendor" icon={<FaTasks />} label="Become Vendor" />
         <SidebarLink to="/dashboard/my-orders" icon={<FaTasks />} label="My Orders" />
+        </>
       )}
+       <SidebarLink to="/dashboard/my-profile" icon={<FaChartBar />} label="My Profile" />
 
       <motion.li variants={navItemVariants} className="mt-auto">
   
