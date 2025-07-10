@@ -1,23 +1,22 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
-import { baseURL, siteTitle } from "../../Libs/Utility";
+
 import { motion } from "framer-motion";
 import SocialLogin from "../../Components/Common/SocialLogin";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Logo from "../../Components/UI/Logo";
+import ShowToast from "../../Components/UI/ShowToast";
 
 const Register = () => {
   const { CreateUser, setUser, UpdateUser, user } = useAuth();
   const axios = useAxios(); 
   const [errorMessage, setErrorMessage] = useState("");
   const [showpassword, setShowPassword] = useState(false);
-  const location = useLocation();
-  const locationState = location.state;
   const navigate = useNavigate();
 
   if (user) {
@@ -92,19 +91,12 @@ const Register = () => {
           
               localStorage.setItem("access-token", res.data.token);
               form.reset();
-
-              if (locationState) {
-                navigate(locationState);
-              } else {
-                navigate("/");
-              }
+              navigate("/dashboard");
             }
           })
-          .catch((err) => setErrorMessage(err.message));
+          .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
       })
-      .catch((err) => {
-        setErrorMessage(err.message);
-      });
+    .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
   };
 
   const containerVariants = {

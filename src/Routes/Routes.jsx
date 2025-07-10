@@ -13,6 +13,14 @@ import AdminRoute from "./AdminRoute";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import BeVendor from "../Pages/Dashboard/User/BeVendor";
 import MyProfile from "../Pages/Dashboard/MyProfile";
+import PriceTrends from "../Pages/Dashboard/User/PriceTrends";
+import ManageWatchlist from "../Pages/Dashboard/User/ManageWatchlist";
+import MyProducts from "../Pages/Dashboard/Vendor/MyProducts";
+import AddAdvertisement from "../Pages/Dashboard/Vendor/AddAdvertisement";
+import MyAdvertisements from "../Pages/Dashboard/Vendor/MyAdvertisements";
+import AllOrders from "../Pages/Dashboard/Admin/AllOrders";
+import AllAdvertisements from "../Pages/Dashboard/Admin/AllAdvertisements";
+import ManageProducts from "../Pages/Dashboard/Admin/ManageProducts";
 
 export const routes = createBrowserRouter([
   {
@@ -62,12 +70,44 @@ export const routes = createBrowserRouter([
         path: "be-vendor",
         element: <BeVendor></BeVendor>,
       },
+      {
+        path: "price-trends",
+        element: <PriceTrends></PriceTrends>,
+      },
+      {
+        path: "manage-watchlist",
+        element: <ManageWatchlist></ManageWatchlist>,
+      },
       // admin routes only
       {
         path: "manage-users",
         element: (
           <AdminRoute>
             <ManageUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-products",
+        element: (
+          <AdminRoute>
+         <ManageProducts></ManageProducts>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-advertisements",
+        element: (
+          <AdminRoute>
+          <AllAdvertisements></AllAdvertisements>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-orders",
+        element: (
+          <AdminRoute>
+            <AllOrders></AllOrders>
           </AdminRoute>
         ),
       },
@@ -78,6 +118,30 @@ export const routes = createBrowserRouter([
         element: (
           <VendorRoute>
             <AddProduct />
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "my-products",
+        element: (
+          <VendorRoute>
+            <MyProducts></MyProducts>
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "add-advertisement",
+        element: (
+          <VendorRoute>
+            <AddAdvertisement></AddAdvertisement>
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "my-advertisements",
+        element: (
+          <VendorRoute>
+            <MyAdvertisements></MyAdvertisements>
           </VendorRoute>
         ),
       },

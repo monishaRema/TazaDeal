@@ -7,10 +7,22 @@ import {
   FaChartBar,
   FaPowerOff,
   FaBox,
+  FaBoxes,
+  FaPlusSquare,
   FaClipboardList,
+  FaClipboardCheck,
   FaUsersCog,
   FaCog,
+  FaBullhorn,
+  FaShoppingCart,
+  FaChartLine,
+  FaHeart,
+  FaUserPlus,
+  FaUserCircle,
+  FaTags,
+  FaBoxOpen,
 } from "react-icons/fa";
+
 import useUserRole from "../../../Hooks/useUserRole";
 import LoadingSpinner from "../../../Components/UI/LoadingSpinner";
 import Logout from "../../../Components/Common/Logout";
@@ -77,27 +89,39 @@ const DashboardSidebar = () => {
       <SidebarLink to="/" icon={<FaHome />} label="Home" />
       <SidebarLink to="/dashboard" icon={<FaChartBar />} label="Dashboard" />
 
+      {/*********************  ADMIN MENU **************************** */  }
       {role === "admin" && (
         <>
           <SidebarLink to="/dashboard/manage-users" icon={<FaUsersCog />} label="Manage Users" />
-          <SidebarLink to="/dashboard/site-settings" icon={<FaCog />} label="Settings" />
+          <SidebarLink to="/dashboard/manage-products" icon={<FaBoxOpen />} label="Manage Products" />
+          <SidebarLink to="/dashboard/all-advertisements" icon={<FaBullhorn />} label="All Advertisements" />
+          <SidebarLink to="/dashboard/all-orders" icon={<FaClipboardCheck />} label="All Orders" />
+        </>
+      )}
+      
+      {/*********************  VENDOR MENU **************************** */  }
+     {role === "vendor" && (
+        <>
+          <SidebarLink to="/dashboard/add-product" icon={<FaPlusSquare />} label="Add Product" />
+          <SidebarLink to="/dashboard/my-products" icon={<FaBoxes />} label="My Products" />
+          <SidebarLink to="/dashboard/add-advertisement" icon={<FaBullhorn />} label="Add Advertisement" />
+          <SidebarLink to="/dashboard/my-advertisements" icon={<FaClipboardList />} label="My Advertisements" />
         </>
       )}
 
-      {role === "vendor" && (
-        <>
-          <SidebarLink to="/dashboard/add-product" icon={<FaBox />} label="Add Product" />
-          <SidebarLink to="/dashboard/my-products" icon={<FaClipboardList />} label="My Products" />
-        </>
-      )}
 
-      {role === "user" && (
+      {/*********************  USER MENU **************************** */  }
+     {role === "user" && (
         <>
-        <SidebarLink to="/dashboard/be-vendor" icon={<FaTasks />} label="Become Vendor" />
-        <SidebarLink to="/dashboard/my-orders" icon={<FaTasks />} label="My Orders" />
+          <SidebarLink to="/dashboard/my-orders" icon={<FaShoppingCart />} label="My Orders" />
+          <SidebarLink to="/dashboard/price-trends" icon={<FaChartLine />} label="View Price Trends" />
+          <SidebarLink to="/dashboard/manage-watchlist" icon={<FaHeart />} label="Manage Watchlist" />
+          <SidebarLink to="/dashboard/be-vendor" icon={<FaUserPlus />} label="Become Vendor" />
         </>
       )}
-       <SidebarLink to="/dashboard/my-profile" icon={<FaChartBar />} label="My Profile" />
+      
+      {/*********************  GENERAL MENU **************************** */  }
+       <SidebarLink to="/dashboard/my-profile" icon={<FaUserCircle />} label="My Profile" />
 
       <motion.li variants={navItemVariants} className="mt-auto">
   

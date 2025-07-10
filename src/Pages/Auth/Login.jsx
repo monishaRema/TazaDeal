@@ -1,15 +1,15 @@
 import React, { use, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../Contex/AuthContex";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
-import { Slide, toast } from "react-toastify";
 import { motion } from "framer-motion";
 import SocialLogin from "../../Components/Common/SocialLogin";
 import { siteTitle } from "../../Libs/Utility";
 import useAxios from "../../Hooks/useAxios";
 import Logo from "../../Components/UI/Logo";
+import ShowToast from "../../Components/UI/ShowToast";
 
 const Login = () => {
   const [showpassword, setShowPassword] = useState(false);
@@ -17,8 +17,7 @@ const Login = () => {
   const { Login, setUser } = use(AuthContext);
   const axios = useAxios();
 
-  const location = useLocation();
-  const locationState = location.state;
+  
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -62,7 +61,8 @@ const Login = () => {
           email: result?.user?.email,
           photoURL: result?.user?.photoURL,
         };
-        axios.post(`/auth/jwt`, userData).then((res) => {
+        axios.post(`/auth/jwt`, userData)
+        .then((res) => {
           console.log(res);
           localStorage.setItem("access-token", res.data.token);
           Swal.fire({
@@ -72,26 +72,13 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          if (locationState) {
-            navigate(locationState);
-          } else {
-            navigate("/");
-          }
-        });
+   
+          navigate("/dashboard");
+        })
+        .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
+        
       })
-      .catch(() => {
-        toast.error("Please provide valid credentials", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Slide,
-        });
-      });
+      .catch(err => <ShowToast status="error" message={err.message}></ShowToast>);
   };
 
   const containerVariants = {
