@@ -1,8 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import DashboardSidebar from '../Pages/Dashboard/Sidebar/DashboardSidebar';
+import useAuth from '../Hooks/useAuth';
 
 const DashboardLayout = () => {
+  const {user} = useAuth();
   return (
     <main className="min-h-screen text-gray-800">
       <div className="flex">
@@ -15,7 +17,8 @@ const DashboardLayout = () => {
         <div className="flex-1 ml-15 md:ml-65 transition-all duration-300">
           {/* Header */}
           <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-            <h1 className="text-lg font-semibold">Welcome back, Monisha</h1>
+            <h1 className="text-lg font-semibold">Welcome back, {user?.displayName}</h1>
+            <img src={user?.photoURL} alt="avatar" className='size-10 rounded-full'/>
            
           </header>
 
