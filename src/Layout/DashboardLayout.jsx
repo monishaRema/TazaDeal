@@ -18,7 +18,7 @@ const DashboardLayout = () => {
           {/* Header */}
           <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
             <h1 className="text-lg font-semibold">Welcome back, {user?.displayName}</h1>
-            <img src={user?.photoURL} alt="avatar" className='size-10 rounded-full'/>
+            <img src={user?.photoURL} alt="avatar" className='size-10 rounded-full object-cover'/>
            
           </header>
 

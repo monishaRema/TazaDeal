@@ -41,7 +41,7 @@ const BeVendor = () => {
     if (isPending) return "Submitting...";
     if (vendorStatus === "approved") return "You are a Vendor";
     if (vendorStatus === "pending") return "Request Pending";
-    if (vendorStatus === "rejected") return "Request Rejected";
+    if (vendorStatus === "rejected") return "Request Again";
     return "Apply to Become Vendor";
   };
 
@@ -59,6 +59,13 @@ const BeVendor = () => {
       <p className="text-gray-600 mb-6">
         Ready to start selling your products? Apply now to become a vendor on TazaDeal.
       </p>
+       {vendorStatus === "rejected" && rejectionReason && (<>
+        <h3 className='text-red-500 mb-1 text-xl font-semibold'>Application Rejected</h3>
+        <p className="text-accent mb-3 text-sm">
+          Rejected Reason: {rejectionReason}
+        </p>
+        </>
+      )}
 
       <button
         onClick={() => mutate()}
@@ -70,11 +77,7 @@ const BeVendor = () => {
         {getButtonLabel()}
       </button>
 
-      {vendorStatus === "rejected" && rejectionReason && (
-        <p className="text-red-500 mt-3 text-sm">
-          Rejected Reason: {rejectionReason}
-        </p>
-      )}
+     
     </div>
   );
 };

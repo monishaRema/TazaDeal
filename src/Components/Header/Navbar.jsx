@@ -165,7 +165,7 @@ const Navbar = () => {
                       className="size-10 rounded-full overflow-hidden"
                       data-tooltip-id="profile-tooltip"
                     >
-                      <img src={photoUrl} alt="" className="size-full" />
+                      <img src={photoUrl} alt="" className="size-full object-cover" />
                     </Link>
                   <Link to={'/dashboard'} className="nav-btn">
 

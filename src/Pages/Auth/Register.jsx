@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link, Navigate, useLocation, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import Swal from "sweetalert2";
@@ -14,8 +14,8 @@ import ShowToast from "../../Components/UI/ShowToast";
 import { siteTitle } from "../../Libs/Utility";
 
 const Register = () => {
-  const { CreateUser, setUser, UpdateUser, user } = useAuth();
-  const axios = useAxios(); 
+  const { CreateUser, setUser, UpdateUser, user, LogOut } = useAuth();
+
   const [errorMessage, setErrorMessage] = useState("");
   const [showpassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -24,81 +24,57 @@ const Register = () => {
     return <Navigate to="/"></Navigate>;
   }
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const displayName = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const photoURL = form.photoUrl.value;
+const handleRegister = async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const displayName = form.name.value;
+  const email = form.email.value;
+  const password = form.password.value;
+  const photoURL = form.photoUrl.value;
 
-    setErrorMessage("");
+  setErrorMessage("");
 
-    const hasLowercase = /[a-z]/.test(password);
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (password.length < 6) {
-      setErrorMessage("Password must be at least 6 characters long.");
-      return;
-    }
-    if (!hasLowercase) {
-      setErrorMessage("Password must include at least one lowercase letter.");
-      return;
-    }
-    if (!hasUppercase) {
-      setErrorMessage("Password must include at least one uppercase letter.");
-      return;
-    }
-    if (!hasNumber) {
-      setErrorMessage("Password must include at least one number.");
-      return;
-    }
+  // Password validation
+  if (password.length < 6) {
+    setErrorMessage("Password must be at least 6 characters long.");
+    return;
+  }
+  if (!hasLowercase) {
+    setErrorMessage("Password must include at least one lowercase letter.");
+    return;
+  }
+  if (!hasUppercase) {
+    setErrorMessage("Password must include at least one uppercase letter.");
+    return;
+  }
+  if (!hasNumber) {
+    setErrorMessage("Password must include at least one number.");
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
+  // Email validation
+  if (!emailRegex.test(email)) {
+    setErrorMessage("Please enter a valid email address.");
+    return;
+  }
 
-    const updateProfile = () => {
-      const userDetails = {
-        displayName,
-        photoURL,
-      };
+  try {
+    const currentUser = await CreateUser(email, password);
+    await UpdateUser({ displayName, photoURL });
+    form.reset();
+    await LogOut();
+    ShowToast("success", "Registration successful. Please login.");
+    navigate("/auth/login");
+  } catch (err) {
+    ShowToast("error", err.message);
+  }
+};
 
-      UpdateUser(userDetails);
-    };
-    CreateUser(email, password)
-      .then((currentUser) => {
-        setUser(currentUser);
-        updateProfile();
-
-        const userData = {
-          name: displayName,
-          email,
-          photoURL,
-        };
-        axios.post(`/auth/jwt`, userData)
-          .then((res) => {
-            if (res.data.insertedId) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "You have registered successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-          
-              localStorage.setItem("access-token", res.data.token);
-              form.reset();
-              navigate("/dashboard");
-            }
-          })
-          .catch(err => ShowToast("error", err.message));
-      })
-    .catch(err => ShowToast("error", err.message));
-  };
 
   const containerVariants = {
     hidden: {},
