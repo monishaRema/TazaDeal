@@ -92,7 +92,17 @@ const MyProducts = () => {
                 <td>{format(new Date(product?.date), "dd MMM yyyy")}</td>
                 <td>{product?.priceUnit}</td>
                 <td>{product?.marketName}</td>
-                <td className="capitalize">{product?.status}</td>
+                <td className="capitalize">
+                   <div className="flex flex-col">
+                    <span>{product.status}</span>
+                    {product.status === "rejected" &&
+                      product?.rejectionReason && (
+                        <span className="text-xs text-red-500">
+                          {product.rejectionReason}
+                        </span>
+                      )}
+                  </div>
+                </td>
                 <td className="flex flex-wrap gap-2">
                   <button
                     onClick={() => setSelectedProduct(product)}

@@ -23,7 +23,7 @@ const SocialLogin = () => {
           .post(`/auth/jwt`, userData)
           .then((res) => {
             localStorage.setItem("access-token", res.data.token);
-            navigate("/dashboard");
+            navigate("/");
           })
           .catch((err) => (
             ShowToast("error", err.message)

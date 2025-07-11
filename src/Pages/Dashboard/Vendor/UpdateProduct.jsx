@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../Components/UI/LoadingSpinner";
 import ShowToast from "../../../Components/UI/ShowToast";
+import useUserData from "../../../Hooks/useUserData";
 import useAuth from "../../../Hooks/useAuth";
 
 const UpdateProduct = () => {
@@ -15,8 +16,9 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const { userInfo } = useUserData();
   const [date, setDate] = useState(new Date());
-//  Fetch Single data depending on : ID
+
   const {
     data: product,
     isLoading,
@@ -42,28 +44,35 @@ const UpdateProduct = () => {
     control,
     name: "prices",
   });
-//  make default data to react hook form
+
   useEffect(() => {
     if (product) {
       reset({
         ...product,
-        prices: product.prices || [{ date: "", price: "" }],
+        prices: product.prices?.length
+          ? product.prices.map((p) => ({
+              ...p,
+              date: new Date(p.date),
+            }))
+          : [{ date: new Date(), price: "" }],
       });
       setDate(new Date(product.date));
     }
   }, [product, reset]);
 
-//   Check the owner
   useEffect(() => {
-    if (!product) return;
-    if (
-      user?.email.toLowerCase().trim() !==
-      product?.vendorEmail?.toLowerCase().trim()
-    ) {
-      ShowToast("error", "You can only update your own product");
+    if (!product || !user) return;
+
+    const isOwner =
+      user?.email?.toLowerCase().trim() ===
+      product?.vendorEmail?.toLowerCase().trim();
+    const isAdmin = userInfo?.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+      ShowToast("error", "You are not authorized to edit this product");
       navigate("/dashboard");
     }
-  }, [product, user, navigate]);
+  }, [product, user, userInfo.role, navigate]);
 
   const { mutate: updateProduct, isLoading: isUpdating } = useMutation({
     mutationFn: async (updatedData) => {
@@ -73,7 +82,11 @@ const UpdateProduct = () => {
     onSuccess: () => {
       ShowToast("success", "Product updated");
       queryClient.invalidateQueries(["myProducts"]);
-      navigate("/dashboard/my-products");
+      if (userInfo.role === "vendor") {
+        navigate("/dashboard/my-products");
+      } else if (userInfo.role === "admin") {
+        navigate("/dashboard/manage-products");
+      }
     },
     onError: () => {
       ShowToast("error", "Update failed");
@@ -90,7 +103,6 @@ const UpdateProduct = () => {
         date: new Date(entry.date).toISOString(),
       })),
     };
-
     updateProduct(updatedData);
   };
 
@@ -200,12 +212,17 @@ const UpdateProduct = () => {
           <label className="theme-label">Price History</label>
           {fields.map((item, index) => (
             <div key={item.id} className="flex items-center gap-2 mb-2">
-              <input
-                type="date"
-                {...register(`prices.${index}.date`, {
-                  required: "Date is required",
-                })}
-                className="theme-input"
+              <Controller
+                control={control}
+                name={`prices.${index}.date`}
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    selected={field.value}
+                    onChange={(date) => field.onChange(date)}
+                    className="theme-input"
+                  />
+                )}
               />
               <input
                 type="number"
@@ -227,7 +244,7 @@ const UpdateProduct = () => {
           <button
             type="button"
             className="btn btn-outline btn-sm mt-2"
-            onClick={() => append({ date: "", price: "" })}
+            onClick={() => append({ date: new Date(), price: "" })}
           >
             + Add Price
           </button>

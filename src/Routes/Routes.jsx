@@ -133,11 +133,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "update-product/:id",
-        element: (
-          <VendorRoute>
-           <UpdateProduct></UpdateProduct>
-          </VendorRoute>
-        ),
+        element: <UpdateProduct></UpdateProduct>
       },
       {
         path: "add-advertisement",

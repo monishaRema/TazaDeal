@@ -73,7 +73,7 @@ const Login = () => {
             timer: 1500,
           });
    
-          navigate("/dashboard");
+          navigate("/");
         })
         .catch(err => ShowToast("error", err.message));
         
