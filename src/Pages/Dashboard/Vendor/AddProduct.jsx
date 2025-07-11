@@ -45,7 +45,7 @@ const AddProduct = () => {
       
     },
     onError: (err) => {
-      console.error(err);
+
       ShowToast("error", err?.response?.data?.message || "Failed to submit product");
     },
   });

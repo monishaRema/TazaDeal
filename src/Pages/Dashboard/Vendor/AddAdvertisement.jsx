@@ -59,7 +59,6 @@ const AddAdvertisement = () => {
       }
     },
     onError: (error) => {
-      console.error("Ad upload failed:", error);
       ShowToast("error", "Something went wrong");
     },
   });

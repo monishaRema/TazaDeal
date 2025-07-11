@@ -63,7 +63,7 @@ const Login = () => {
         };
         axios.post(`/auth/jwt`, userData)
         .then((res) => {
-          console.log(res);
+        
           localStorage.setItem("access-token", res.data.token);
           Swal.fire({
             position: "center",

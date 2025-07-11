@@ -94,7 +94,6 @@ const UpdateAdvertisement = () => {
         image: imageUrl,
       });
     } catch (err) {
-      console.error(err);
       ShowToast("error", "Image upload failed");
     } finally {
       setUploading(false);

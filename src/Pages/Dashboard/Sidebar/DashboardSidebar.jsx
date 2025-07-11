@@ -67,7 +67,8 @@ const SidebarLink = ({ to, icon, label }) => {
 };
 
 const DashboardSidebar = () => {
-  const { role, isLoading } = useUserData();
+  const { userInfo, isLoading } = useUserData();
+  const role = userInfo.role; 
   if (isLoading) return <LoadingSpinner />;
 
   return (
