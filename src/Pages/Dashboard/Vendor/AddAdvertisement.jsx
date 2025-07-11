@@ -42,7 +42,7 @@ const AddAdvertisement = () => {
         description: formData.description.trim(),
         image: imageUrl,
         status: "pending",
-        createdAt: new Date().toISOString(),
+        createdAt: new Date(),
       };
 
       const res = await axiosSecure.post("/vendor/ads", adPayload);

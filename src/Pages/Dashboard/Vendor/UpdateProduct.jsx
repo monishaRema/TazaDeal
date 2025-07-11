@@ -97,10 +97,10 @@ const UpdateProduct = () => {
     const updatedData = {
       ...formData,
       priceUnit: parseInt(formData.priceUnit),
-      date: date.toISOString(),
+      date: date,
       prices: formData.prices.map((entry) => ({
         price: parseInt(entry.price),
-        date: new Date(entry.date).toISOString(),
+        date: new Date(entry.date),
       })),
     };
     updateProduct(updatedData);

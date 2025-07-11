@@ -58,9 +58,9 @@ const AddProduct = () => {
        priceUnit: parseInt(data.priceUnit),
       prices: data.prices.map((entry) => ({
         price: parseInt(entry.price),
-        date: new Date(entry.date).toISOString(),
+        date: new Date(entry.date),
       })),
-      date: date.toISOString(),
+      date: date,
     };
     addProduct(productData);
   };
