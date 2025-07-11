@@ -24,6 +24,7 @@ import ManageProducts from "../Pages/Dashboard/Admin/ManageProducts";
 import UpdateProduct from "../Pages/Dashboard/Vendor/UpdateProduct";
 import UpdateAdvertisement from "../Pages/Dashboard/Vendor/UpdateAdvertisement";
 import ProductDetails from "../Pages/ProductDetails";
+import MyOrderList from "../Pages/Dashboard/User/MyOrderList";
 
 export const routes = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const routes = createBrowserRouter([
       {
         path: "manage-watchlist",
         element: <ManageWatchlist></ManageWatchlist>,
+      },
+         {
+        path: "my-orders",
+        element: <MyOrderList></MyOrderList>,
       },
       // admin routes only
       {

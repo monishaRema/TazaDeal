@@ -70,8 +70,8 @@ const AllAdvertisements = () => {
   };
 
   return (
-    <div className="p-5 md:p-8 bg-white rounded-xl">
-      <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">Manage Advertisements</h2>
+    <div className="table-box-container">
+      <h2 className="sub-heading mb-5">Manage Advertisements</h2>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">

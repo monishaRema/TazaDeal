@@ -46,8 +46,8 @@ const MyProducts = () => {
   const totalPages = data?.totalPages || 1;
 
   return (
-    <div className="p-5 md:p-8 bg-white rounded-xl">
-      <h2 className="text-2xl md:text-3xl text-primary font-bold mb-4">
+    <div className="table-box-container">
+      <h2 className="sub-heading mb-5">
         My Products
       </h2>
 

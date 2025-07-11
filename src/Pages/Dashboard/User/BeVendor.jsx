@@ -55,7 +55,7 @@ const BeVendor = () => {
         <title>{siteTitle} | Dashboard: Be Vendor</title>
       </Helmet>
 
-      <h2 className="text-2xl md:text-3xl font-bold mb-4">Become a Vendor</h2>
+      <h2 className="sub-heading mb-4">Become a Vendor</h2>
       <p className="text-gray-600 mb-6">
         Ready to start selling your products? Apply now to become a vendor on TazaDeal.
       </p>

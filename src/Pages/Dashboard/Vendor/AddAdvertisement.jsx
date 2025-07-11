@@ -65,7 +65,7 @@ const AddAdvertisement = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 shadow bg-white rounded-lg">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
+      <h2 className="sub-heading mb-5">
         Create New Advertisement
       </h2>
       <form onSubmit={handleSubmit(addAd)} className="space-y-4">

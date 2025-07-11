@@ -80,9 +80,9 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="p-5 md:p-8 bg-white rounded-xl">
+    <div className="table-box-container">
       <div className="flex flex-col gap-5 md:flex-row justify-between mb-5">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary">
+            <h2 className="sub-heading">
         Manage Users
       </h2>
 

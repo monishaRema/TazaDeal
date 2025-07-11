@@ -30,6 +30,12 @@
 .footer-navlink.active{
   @apply text-accent;
 }
+.sub-heading{
+  @apply text-2xl md:text-3xl text-primary font-semibold;
+}
+.table-box-container{
+  @apply container mx-auto p-5 md:p-8 bg-white rounded-xl;
+}
 
 .dropdown-container{
   height:100vh;
