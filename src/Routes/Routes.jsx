@@ -23,6 +23,7 @@ import AllAdvertisements from "../Pages/Dashboard/Admin/AllAdvertisements";
 import ManageProducts from "../Pages/Dashboard/Admin/ManageProducts";
 import UpdateProduct from "../Pages/Dashboard/Vendor/UpdateProduct";
 import UpdateAdvertisement from "../Pages/Dashboard/Vendor/UpdateAdvertisement";
+import ProductDetails from "../Pages/ProductDetails";
 
 export const routes = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const routes = createBrowserRouter([
         path: "all-products",
         element: <AllProducts></AllProducts>,
       },
+      {
+        path: "product-details/:id",
+        element: <PrivateRoute><ProductDetails></ProductDetails></PrivateRoute>
+      }
     ],
   },
   {

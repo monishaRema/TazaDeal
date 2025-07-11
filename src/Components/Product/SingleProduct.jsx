@@ -11,9 +11,9 @@ const SingleProduct = ({ product }) => {
 
   const handleViewDetails = () => {
     if (!user) {
-      navigate("/login");
+      navigate("/auth/login");
     } else {
-      navigate(`/details/${product._id}`);
+      navigate(`/product-details/${product._id}`);
     }
   };
 

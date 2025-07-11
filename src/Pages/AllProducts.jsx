@@ -6,6 +6,7 @@ import SingleProduct from "../Components/Product/SingleProduct";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LoadingSpinner from "../Components/UI/LoadingSpinner";
+import NoItemsFound from "../Components/UI/NoItemsFound";
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -90,6 +91,9 @@ const AllProducts = () => {
             <p className="text-red-500">Failed to fetch products.</p>
           ) : (
             <>
+            {
+              data?.products.length <= 0 && <NoItemsFound  items={'product'}></NoItemsFound>
+            }
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {data?.products?.map((product) => (
                   <SingleProduct key={product._id} product={product} />
