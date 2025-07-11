@@ -39,6 +39,13 @@ const Footer = () => {
           About Us
         </NavLink>
       </motion.li>
+        <motion.li variants={navItemVariants}>
+        <a
+          className="footer-navlink"
+        >
+          Terms & Conditions
+        </a>
+      </motion.li>
     </>
   );
 

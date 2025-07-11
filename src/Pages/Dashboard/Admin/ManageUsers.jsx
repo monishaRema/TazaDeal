@@ -3,28 +3,36 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ShowToast from "../../../Components/UI/ShowToast";
 import Pagination from "../../../Components/UI/Pagination";
+import useDebounce from "../../../Hooks/useDebounce";
 
-const roles = ["user", "vendor", "admin"];
 const USERS_PER_PAGE = 10;
+const roles = ["user", "vendor", "admin"];
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
-  const [rejectionReason, setRejectionReason] = useState("");
-  const [rejectTarget, setRejectTarget] = useState(null);
+
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search);
+  const [rejectTarget, setRejectTarget] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState("");
 
   const {
     data: userData,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["allUsers", page],
+    queryKey: ["allUsers", page, debouncedSearch],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(
-        `/admin?page=${page}&limit=${USERS_PER_PAGE}`
-      );
-      return data;
+      const res = await axiosSecure.get(`/admin`, {
+        params: {
+          page,
+          limit: USERS_PER_PAGE,
+          search: debouncedSearch,
+        },
+      });
+      return res.data;
     },
     keepPreviousData: true,
   });
@@ -33,16 +41,13 @@ const ManageUsers = () => {
   const totalPages = userData?.totalPages || 1;
 
   const { mutate: updateUser } = useMutation({
-    mutationFn: async ({ email, update }) => {
-      return await axiosSecure.patch(`/admin/update-user/${email}`, update);
-    },
+    mutationFn: async ({ email, update }) =>
+      await axiosSecure.patch(`/admin/update-user/${email}`, update),
     onSuccess: () => {
       queryClient.invalidateQueries(["allUsers"]);
-      ShowToast("success", "Update successful");
+      ShowToast("success", "User updated");
     },
-    onError: () => {
-      ShowToast("error", "Update failed");
-    },
+    onError: () => ShowToast("error", "Update failed"),
   });
 
   const handleRoleChange = (email, role) => {
@@ -61,11 +66,7 @@ const ManageUsers = () => {
   };
 
   const handleReject = () => {
-    if (!rejectionReason) {
-      ShowToast("error", "Please enter a reason");
-      return;
-    }
-
+    if (!rejectionReason) return ShowToast("error", "Please enter a reason");
     updateUser({
       email: rejectTarget,
       update: {
@@ -74,16 +75,32 @@ const ManageUsers = () => {
         status: "rejected vendor",
       },
     });
-
-    setRejectionReason("");
     setRejectTarget(null);
+    setRejectionReason("");
   };
 
   return (
     <div className="p-5 md:p-8 bg-white rounded-xl">
-      <h2 className="text-2xl md:text-3xl text-primary font-bold mb-4">
+      <div className="flex flex-col gap-5 md:flex-row justify-between mb-5">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary">
         Manage Users
       </h2>
+
+      {/* Search Bar */}
+      <div className="flex justify-end flex-1">
+        <input
+          type="text"
+          placeholder="Search by name or email"
+          className="input input-bordered w-full max-w-sm"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1); 
+          }}
+        />
+      </div>
+      </div>
+
 
       {isLoading ? (
         <p>Loading...</p>
@@ -137,11 +154,11 @@ const ManageUsers = () => {
                       )}
                     </td>
                     <td className="capitalize">
-                      {u?.vendorRequestStatus || ""}
+                      {u?.vendorRequestStatus}
                       {u?.vendorRequestStatus === "rejected" && (
-                        <div className="text-xs text-red-500">
+                        <p className="text-xs text-red-500">
                           {u?.vendorRejectionReason}
-                        </div>
+                        </p>
                       )}
                     </td>
                     <td className="flex gap-1">
@@ -168,14 +185,13 @@ const ManageUsers = () => {
             </table>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
-             <Pagination totalPages={totalPages} page={page} setPage={setPage}></Pagination>
+            <Pagination totalPages={totalPages} page={page} setPage={setPage} />
           )}
         </>
       )}
 
-      {/* Dialog for rejection reason */}
+      {/* Reject Modal */}
       {rejectTarget && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-5 rounded shadow max-w-sm w-full">

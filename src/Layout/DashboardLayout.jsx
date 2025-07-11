@@ -9,12 +9,12 @@ const DashboardLayout = () => {
     <main className="min-h-screen text-gray-800">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-15 md:w-65 bg-white min-h-screen fixed top-0 left-0 z-40 px-2 md:px-5">
+        <aside className="w-15 md:w-65 bg-white h-full fixed top-0 left-0 bottom-0 z-40 px-2 md:px-5">
           <DashboardSidebar />
         </aside>
 
         {/* Main content */}
-        <div className="flex-1 ml-15 md:ml-65 transition-all duration-300">
+        <div className="flex-1 ml-15 md:ml-65 transition-all duration-300 bg-secondary relative">
           {/* Header */}
           <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
             <h1 className="text-lg font-semibold">Welcome back, {user?.displayName}</h1>

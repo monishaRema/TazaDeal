@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import handleDelete from "../../../Hooks/handleDelelte";
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -18,6 +19,7 @@ const ManageProducts = () => {
   const [page, setPage] = useState(1);
   const [rejectTarget, setRejectTarget] = useState(null);
   const [rejectionReason, setRejectionReason] = useState("");
+  const [rejectionFeedback, setRejectionFeedback] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const { data, isLoading } = useQuery({
@@ -64,30 +66,17 @@ const ManageProducts = () => {
   };
 
   const handleReject = () => {
-    if (!rejectionReason) return ShowToast("error", "Enter rejection reason");
+    if (!rejectionReason  && !rejectionFeedback) return ShowToast("error", "Enter rejection reason and feedback");
     updateStatus({
       id: rejectTarget,
-      update: { status: "rejected", rejectionReason },
+      update: { status: "rejected", rejectionReason,rejectionFeedback },
     });
     setRejectTarget(null);
     setRejectionReason("");
+    setRejectionFeedback("");
   };
 
-  const handleDeleteConfirm = (product) => {
-    Swal.fire({
-      title: `Delete ${product.itemName}?`,
-      text: "This action cannot be undone.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "red",
-      cancelButtonColor: "#146131",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteProduct(product._id);
-      }
-    });
-  };
+ 
 
   const totalPages = data?.totalPages || 1;
 
@@ -154,7 +143,7 @@ const ManageProducts = () => {
                   </button>
                   <button
                     className="btn btn-xs btn-error"
-                    onClick={() => handleDeleteConfirm(product)}
+                    onClick={() => handleDelete(product.itemName,product._id,deleteProduct)}
                   >
                     <FaTrash />
                   </button>
@@ -195,6 +184,14 @@ const ManageProducts = () => {
               placeholder="Enter reason"
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
+              className="input input-bordered w-full mb-3"
+            />
+
+             <input
+              type="text"
+              placeholder="Give your feedback"
+              value={rejectionFeedback}
+              onChange={(e) => setRejectionFeedback(e.target.value)}
               className="input input-bordered w-full mb-3"
             />
             <div className="flex justify-end gap-2">

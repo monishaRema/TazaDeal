@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
-import Swal from "sweetalert2";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { format } from "date-fns";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import Pagination from "../../../Components/UI/Pagination";
+import handleDelete from "../../../Hooks/handleDelelte";
+import ShowToast from "../../../Components/UI/ShowToast";
 
 const ADS_PER_PAGE = 10;
 
@@ -20,7 +21,9 @@ const MyAdvertisements = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["vendorAds", page],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/vendor/ads?page=${page}&limit=${ADS_PER_PAGE}`);
+      const res = await axiosSecure.get(
+        `/vendor/ads?page=${page}&limit=${ADS_PER_PAGE}`
+      );
       return res.data;
     },
   });
@@ -31,32 +34,22 @@ const MyAdvertisements = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["vendorAds"]);
-      Swal.fire("Deleted!", "Advertisement has been deleted.", "success");
+      ShowToast("success", "Advertisement has been deleted.");
     },
     onError: () => {
-      Swal.fire("Error", "Failed to delete the advertisement.", "error");
+      ShowToast("error", "Failed to delete the advertisement.");
     },
   });
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "This will permanently delete the advertisement.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteAd(id);
-      }
-    });
-  };
+
 
   const totalPages = data?.totalPages || 1;
 
   return (
     <div className="p-5 md:p-8 bg-white rounded-xl">
-      <h2 className="text-2xl md:text-3xl text-primary font-bold mb-4">My Advertisements</h2>
+      <h2 className="text-2xl md:text-3xl text-primary font-bold mb-4">
+        My Advertisements
+      </h2>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
@@ -65,6 +58,7 @@ const MyAdvertisements = () => {
               <th>#</th>
               <th>Image</th>
               <th>Title</th>
+              <th>Short Descripton</th>
               <th>Date</th>
               <th>Status</th>
               <th>Actions</th>
@@ -82,6 +76,11 @@ const MyAdvertisements = () => {
                   />
                 </td>
                 <td>{ad.title}</td>
+                <td>
+                  {ad.description.length > 50
+                    ? `${ad.description.slice(0, 50)}...`
+                    : ad.description}
+                </td>
                 <td>{format(new Date(ad.createdAt), "dd MMM yyyy")}</td>
                 <td className="capitalize">{ad.status}</td>
                 <td className="flex flex-wrap gap-2">
@@ -98,7 +97,7 @@ const MyAdvertisements = () => {
                     <FaEdit />
                   </Link>
                   <button
-                    onClick={() => handleDelete(ad._id)}
+                    onClick={() => handleDelete(ad.title,ad._id,deleteAd)}
                     className="btn btn-xs btn-error"
                   >
                     <FaTrash />
@@ -119,14 +118,22 @@ const MyAdvertisements = () => {
       {selectedAd && (
         <dialog open className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
-            <h2 className="font-bold text-xl md:text-2xl mb-2 text-primary">{selectedAd.title}</h2>
+           
             <img
               src={selectedAd.image}
               alt={selectedAd.title}
               className="rounded-lg w-full max-h-65 object-cover mb-4"
             />
-            <p><strong>Status:</strong> {selectedAd.status}</p>
-            <p><strong>Description:</strong> {selectedAd.description}</p>
+
+             <h2 className="font-bold text-xl md:text-2xl mb-2 text-primary">
+              {selectedAd.title}
+            </h2>
+            <p>
+              <strong>Status:</strong> {selectedAd.status}
+            </p>
+            <p>
+              <strong>Description:</strong> {selectedAd.description}
+            </p>
 
             <div className="modal-action">
               <form method="dialog">

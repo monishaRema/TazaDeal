@@ -3,10 +3,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
-import Swal from "sweetalert2";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import Pagination from "../../../Components/UI/Pagination";
 import { format } from "date-fns";
+import handleDelete from "../../../Hooks/handleDelelte";
+import ShowToast from "../../../Components/UI/ShowToast";
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -29,30 +30,18 @@ const MyProducts = () => {
 
   const { mutate: deleteProduct } = useMutation({
     mutationFn: async (id) => {
-      return await axiosSecure.delete(`/vendor/delete-product/${id}`);
+     return await axiosSecure.delete(`/vendor/delete-product/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["vendorProducts"]);
-      Swal.fire("Deleted!", "Product has been deleted.", "success");
+    ShowToast("success", "Product has been deleted.");
     },
     onError: () => {
-      Swal.fire("Error", "Failed to delete the product.", "error");
+     ShowToast("error", "Failed to delete the product.");
     },
   });
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteProduct(id);
-      }
-    });
-  };
+
 
   const totalPages = data?.totalPages || 1;
 
@@ -93,7 +82,7 @@ const MyProducts = () => {
                 <td>{product?.priceUnit}</td>
                 <td>{product?.marketName}</td>
                 <td className="capitalize">
-                   <div className="flex flex-col">
+                  <div className="flex flex-col">
                     <span>{product.status}</span>
                     {product.status === "rejected" &&
                       product?.rejectionReason && (
@@ -117,7 +106,7 @@ const MyProducts = () => {
                     <FaEdit />
                   </Link>
                   <button
-                    onClick={() => handleDelete(product._id)}
+                    onClick={() => handleDelete(product.itemName,product._id,deleteProduct)}
                     className="btn btn-xs btn-error"
                   >
                     <FaTrash />
@@ -131,7 +120,11 @@ const MyProducts = () => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <Pagination totalPages={totalPages} page={page} setPage={setPage}></Pagination>
+        <Pagination
+          totalPages={totalPages}
+          page={page}
+          setPage={setPage}
+        ></Pagination>
       )}
 
       {/* Modal for viewing product */}
@@ -144,12 +137,35 @@ const MyProducts = () => {
             <img
               src={selectedProduct.image}
               alt={selectedProduct.itemName}
-             className="rounded-lg w-full max-h-65 object-cover mb-4"
+              className="rounded-lg w-full max-h-65 object-cover mb-4"
             />
-            <p><strong>Price:</strong> {selectedProduct.priceUnit}</p>
-            <p><strong>Category:</strong> {selectedProduct.category}</p>
-            <p><strong>Status:</strong> {selectedProduct.status}</p>
-            <p><strong>Description:</strong> {selectedProduct.itemDescription}</p>
+            <p>
+              <strong>Price:</strong> {selectedProduct.priceUnit}
+            </p>
+            <p>
+              <strong>Category:</strong> {selectedProduct.category}
+            </p>
+            <p>
+              <strong>Market:</strong> {selectedProduct.marketName}
+            </p>
+            <p>
+              <strong>Description:</strong> {selectedProduct.itemDescription}
+            </p>
+            <p>
+              <strong>Status:</strong> {selectedProduct.status}
+            </p>
+            {selectedProduct.status == "rejected" && (
+              <>
+                <p>
+                  <strong>Rejection Reason:</strong>{" "}
+                  {selectedProduct.rejectionReason}
+                </p>
+                <p>
+                  <strong>Admin Feedback:</strong>{" "}
+                  {selectedProduct.rejectionFeedback}
+                </p>
+              </>
+            )}
 
             <div className="modal-action">
               <form method="dialog">
