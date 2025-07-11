@@ -128,13 +128,13 @@ const MyProducts = () => {
       {selectedProduct && (
         <dialog open className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
-            <h3 className="font-bold text-lg mb-2">
+            <h2 className="font-bold text-xl md:text-2xl mb-2 text-primary">
               {selectedProduct.itemName}
-            </h3>
+            </h2>
             <img
               src={selectedProduct.image}
               alt={selectedProduct.itemName}
-              className="rounded-lg w-full mb-4"
+             className="rounded-lg w-full max-h-65 object-cover mb-4"
             />
             <p><strong>Price:</strong> {selectedProduct.priceUnit}</p>
             <p><strong>Category:</strong> {selectedProduct.category}</p>

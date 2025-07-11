@@ -22,6 +22,7 @@ import AllOrders from "../Pages/Dashboard/Admin/AllOrders";
 import AllAdvertisements from "../Pages/Dashboard/Admin/AllAdvertisements";
 import ManageProducts from "../Pages/Dashboard/Admin/ManageProducts";
 import UpdateProduct from "../Pages/Dashboard/Vendor/UpdateProduct";
+import UpdateAdvertisement from "../Pages/Dashboard/Vendor/UpdateAdvertisement";
 
 export const routes = createBrowserRouter([
   {
@@ -151,6 +152,14 @@ export const routes = createBrowserRouter([
         element: (
           <VendorRoute>
             <MyAdvertisements></MyAdvertisements>
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "update-advertisement/:id",
+        element: (
+          <VendorRoute>
+            <UpdateAdvertisement></UpdateAdvertisement>
           </VendorRoute>
         ),
       },
