@@ -14,7 +14,7 @@ const MyOrderList = () => {
   const { data: orders, isLoading } = useQuery({
     queryKey: ["my-orders", userInfo?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/public/my-orders?email=${userInfo.email}`);
+      const res = await axiosSecure.get(`/users/my-orders?email=${userInfo.email}`);
       return res.data;
     },
     enabled: !!userInfo?.email,
