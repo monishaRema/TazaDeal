@@ -19,7 +19,7 @@ const Review = ({ reviews, productId }) => {
     enabled: !!user?.email && isEligibleRole,
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/public/review-eligibility?email=${user.email}&productId=${productId}`
+        `/users/review-eligibility?productId=${productId}`
       );
       return data;
     },
