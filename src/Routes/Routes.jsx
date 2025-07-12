@@ -25,6 +25,7 @@ import UpdateProduct from "../Pages/Dashboard/Vendor/UpdateProduct";
 import UpdateAdvertisement from "../Pages/Dashboard/Vendor/UpdateAdvertisement";
 import ProductDetails from "../Pages/ProductDetails";
 import MyOrderList from "../Pages/Dashboard/User/MyOrderList";
+import BlogHighlights from "../Components/Home/BlogHighlights";
 
 export const routes = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ export const routes = createBrowserRouter([
       {
         path: "product-details/:id",
         element: <PrivateRoute><ProductDetails></ProductDetails></PrivateRoute>
-      }
+      },
+      // {
+      //   path:'blogs',
+      //   element:<BlogHighlights></BlogHighlights>
+      // }
     ],
   },
   {

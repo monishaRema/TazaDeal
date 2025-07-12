@@ -1,35 +1,39 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router';
-import { FaBook } from 'react-icons/fa';
+import { FaStoreAlt } from 'react-icons/fa';
 
 const slides = [
   {
     id: 1,
-    title: "Discover Your Next Great Read",
-    description: "Explore thousands of books across every genre, from thrilling mysteries to heartwarming romances, all in your personal virtual library.",
-    image: "https://plus.unsplash.com/premium_photo-1749135102582-19927170462a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    button_text: 'Start Reading', 
-    button_link: '/bookshelf'
-},
+    title: "Explore Fresh Market Deals Daily",
+    description:
+      "Get real-time pricing from local vendors across your region. Stay informed and make smarter shopping decisions with up-to-date price insights.",
+    image:
+      "https://bhaskarlive.in/wp-content/uploads/Vegetable-Market.jpg",
+    button_text: "View Products",
+    button_link: "/all-products",
+  },
   {
     id: 2,
-    title: "Build Your Digital Library",
-
-    description: "Keep track of books you've read, want to read, and currently reading. Create custom shelves and share recommendations with fellow book lovers.",
-    image: "https://d4804za1f1gw.cloudfront.net/wp-content/uploads/sites/18/2018/09/how-to-start-a-book-club-850x560.jpg",
-   button_text: 'Add Book', 
-    button_link: '/add-book'
-},
+    title: "Your Market, Your Prices",
+    description:
+      "Track item prices over time and compare market trends before making your next purchase. All from the convenience of your screen.",
+    image:
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/e0/78/39.jpg",
+    button_text: "Start Tracking",
+    button_link: "/compare",
+  },
   {
     id: 3,
-    title: "Connect with Book Lovers",
-    description: "Share reviews, join book clubs, and discover new authors through our vibrant community of readers who share your love for literature.",
-    image: "https://img.freepik.com/free-photo/young-student-learning-library_23-2149215402.jpg?uid=R196871962&ga=GA1.1.1820641712.1742857839&semt=ais_hybrid&w=740",
-    button_text: 'Get Started', 
-    button_link: '/register'
-}
+    title: "Support Local Vendors",
+    description:
+      "Browse items directly from registered sellers in your city. Fair prices, transparent data, and a better shopping experience for all.",
+    image:
+      "https://www.tbsnews.net/sites/default/files/styles/big_3/public/images/2019/12/20/karwan_bazar_5.jpg",
+    button_text: "Register as Vendor",
+    button_link: "/register",
+  },
 ];
 
 const Hero = () => {
@@ -38,21 +42,16 @@ const Hero = () => {
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
+    }, 6000);
     return () => clearInterval(timer);
   }, [isAutoPlaying]);
-
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
     setIsAutoPlaying(false);
   };
-
-  
 
   return (
     <div className="relative h-[500px] md:h-[700px] overflow-hidden">
@@ -62,26 +61,24 @@ const Hero = () => {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -30 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="absolute inset-0"
         >
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
           />
-      
-          
-          <div className="relative z-10 h-full flex items-center px-8 md:px-16 bg-gradient-to-b from-[#0c092560] to-[#12051d60] backdrop-blur-xs">
+          <div className="relative z-10 h-full flex items-center px-8 md:px-16 bg-gradient-to-b from-[#0c092580] to-[#00000080]">
             <div className="max-w-2xl text-white mx-auto flex flex-col text-center justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
                 className="mb-4"
               >
                 <span className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm md:text-base font-medium">
-                  <FaBook className="w-4 h-4 mr-2" />
-                  Virtual Bookshelf
+                  <FaStoreAlt className="w-4 h-4 mr-2" />
+                  TazaDeal — Live Market Tracker
                 </span>
               </motion.div>
 
@@ -93,8 +90,6 @@ const Hero = () => {
               >
                 {slides[currentSlide].title}
               </motion.h1>
-
-
 
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
@@ -111,19 +106,18 @@ const Hero = () => {
                 transition={{ delay: 0.7, duration: 0.6 }}
                 className="flex gap-4 justify-center"
               >
-                <Link 
+                <Link
                   to={slides[currentSlide].button_link}
-                  className="gradient-btn">
+                  className="px-6 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 transition"
+                >
                   {slides[currentSlide].button_text}
                 </Link>
-             
               </motion.div>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-     
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {slides.map((_, index) => (
           <button
@@ -131,13 +125,12 @@ const Hero = () => {
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-200 ${
               index === currentSlide
-                ? 'bg-violet-400 scale-125'
-                : 'bg-violet-600 hover:bg-violet-500'
+                ? "bg-lime-400 scale-125"
+                : "bg-lime-700 hover:bg-lime-600"
             }`}
           />
         ))}
       </div>
-
     </div>
   );
 };
