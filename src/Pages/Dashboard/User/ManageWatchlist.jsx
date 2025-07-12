@@ -14,18 +14,20 @@ const ManageWatchlist = () => {
   const { userInfo } = useUserData();
   const queryClient = useQueryClient();
 
-
   const { data: watchlist, isLoading } = useQuery({
     queryKey: ["watchlist", userInfo?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/users/watchlist?email=${userInfo?.email}`);
+      const { data } = await axiosSecure.get(
+        `/users/watchlist?email=${userInfo?.email}`
+      );
       return data;
     },
     enabled: !!userInfo?.email,
   });
 
   const { mutate: deleteFromWatchlist } = useMutation({
-    mutationFn: async (id) => await axiosSecure.delete(`/users/watchlist/${id}`),
+    mutationFn: async (id) =>
+      await axiosSecure.delete(`/users/watchlist/${id}`),
     onSuccess: () => {
       ShowToast("success", "Removed from watchlist");
       queryClient.invalidateQueries(["watchlist"]);
@@ -33,7 +35,7 @@ const ManageWatchlist = () => {
     onError: () => ShowToast("error", "Failed to remove item"),
   });
 
-
+  console.log(watchlist);
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -53,22 +55,31 @@ const ManageWatchlist = () => {
           <tbody>
             {watchlist?.length > 0 &&
               watchlist.map((item, index) => (
-                <tr key={item._id}>
+                <tr key={item?._id}>
                   <td>{index + 1}</td>
-                  <td>{item.productName}</td>
-                  <td>{item.marketName}</td>
-               <td>
-  {item.addedAt && isValid(new Date(item.addedAt))
-    ? format(new Date(item.addedAt), "dd MMM yyyy")
-    : "Invalid Date"}
-</td>
+                  <td>{item?.productName}</td>
+                  <td>{item?.marketName}</td>
+                  <td>
+                    {item?.date
+                      ? format(new Date(item.date), "dd MMM yyyy")
+                      : "N/A"}
+                  </td>
                   <td className="flex gap-2">
-                    <Link to="/all-products" className="btn btn-sm btn-outline btn-primary">
+                    <Link
+                      to="/all-products"
+                      className="btn btn-sm btn-outline btn-primary"
+                    >
                       Add More
                     </Link>
                     <button
-                      onClick={() => handleDelete(item.productName, item._id, deleteFromWatchlist)}
-                      className="btn btn-sm btn-error"
+                      onClick={() =>
+                        handleDelete(
+                          item?.productName,
+                          item?._id,
+                          deleteFromWatchlist
+                        )
+                      }
+                      className="btn btn-sm bg-red-500 text-white"
                     >
                       <FaTrash />
                     </button>
@@ -79,7 +90,9 @@ const ManageWatchlist = () => {
         </table>
       </div>
 
-      {watchlist?.length === 0 && <p className="text-center mt-4">No items in your watchlist.</p>}
+      {watchlist?.length === 0 && (
+        <p className="text-center mt-4">No items in your watchlist.</p>
+      )}
     </div>
   );
 };

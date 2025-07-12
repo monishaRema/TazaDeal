@@ -1,50 +1,40 @@
 import React from 'react';
-import useAuth from '../../Hooks/useAuth';
-import { useQuery } from '@tanstack/react-query';
-
 import useUserData from '../../Hooks/useUserData';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const Review = ({ reviews, productId }) => {
-  const { user } = useAuth();
   const { userInfo } = useUserData();
-  const axiosSecure = useAxiosSecure()
-
   const isEligibleRole = userInfo.role === 'user';
 
-  const { data: eligibility, isLoading } = useQuery({
-    queryKey: ['reviewEligibility', user?.email, productId],
-    enabled: !!user?.email && isEligibleRole,
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(
-        `/users/review-eligibility?productId=${productId}`
-      );
-      return data;
-    },
-  });
-
-  if (!isEligibleRole) {
-    return (
-      <div>
-        <ReviewsList productId={productId} reviews={reviews} />
-      </div>
-    );
-  }
-
-  if (isLoading) return <p>Checking review eligibility...</p>;
+//  check already reviewed or not
+  const hasAlreadyReviewed = reviews?.some(
+    (review) => review.userEmail === userInfo.email
+  );
 
   return (
     <div className="mt-10">
-      <ReviewsList productId={productId} reviews={reviews} />
-      {eligibility?.canReview ? (
-        <div className="mt-6">
-          <h3 className="text-xl font-bold mb-3">Submit Review</h3>
+      {reviews.length > 0 && (
+        <ReviewsList productId={productId} reviews={reviews} />
+      )}
+
+      {isEligibleRole && !hasAlreadyReviewed ? (
+        <div className="mt-6 bg-white p-5 md:p-8 rounded-md shadow-sm">
+          <h2 className="sub-heading mb-1">Submit Review</h2>
+          <p className="text-sm text-gray-600 mb-10">
+            Share your feedback on market price — whether you think it's too high, fair, or recently changed drastically.
+          </p>
           <ReviewForm productId={productId} />
         </div>
-      ): <p className='p-5 rounded-md bg-white'>Buy the product to share your review to this product.</p>
-    }
+      ) : isEligibleRole && hasAlreadyReviewed ? (
+        <p className="p-5 mt-4 rounded-md bg-white text-gray-700 shadow-sm">
+          ✅ You’ve already submitted a review for this product.
+        </p>
+      ) : (
+        <p className="p-5 mt-4 rounded-md bg-white text-gray-700 shadow-sm">
+          Only buyers can view reviews. You cannot submit a review with role: <strong>{userInfo.role}</strong>.
+        </p>
+      )}
     </div>
   );
 };

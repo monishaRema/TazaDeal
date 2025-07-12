@@ -71,7 +71,7 @@ const ProductDetails = () => {
       </div>
 
       <Review reviews={product.reviews} productId={product._id} />
-      {/* <ShowComparison productId={product._id} /> */}
+      <ShowComparison productId={product._id} prices={product.prices} />
 
       {showPaymentModal && (
         <div className="fixed inset-0 bg-primary/20 flex justify-center items-center z-50 backdrop-blur-xs">
