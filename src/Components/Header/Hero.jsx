@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, BookOpen, Star, Users } from 'lucide-react';
 import { Link } from 'react-router';
+import { FaBook } from 'react-icons/fa';
 
 const slides = [
   {
@@ -80,7 +80,7 @@ const Hero = () => {
                 className="mb-4"
               >
                 <span className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm md:text-base font-medium">
-                  <BookOpen className="w-4 h-4 mr-2" />
+                  <FaBook className="w-4 h-4 mr-2" />
                   Virtual Bookshelf
                 </span>
               </motion.div>

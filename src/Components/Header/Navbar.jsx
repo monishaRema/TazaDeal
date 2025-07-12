@@ -65,7 +65,7 @@ const Navbar = () => {
         animate="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={navVarient}
-        className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-primary/70 via-green-700 to-primary  text-white z-50"
+        className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-primary/70 via-green-700 to-primary/80 backdrop-blur-sm text-white z-50"
       >
         <div className="container mx-auto px-5">
           <div className="navbar px-0 flex justify-between items-center py-3">
