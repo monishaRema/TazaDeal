@@ -22,7 +22,7 @@ const slides = [
     image:
       "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/e0/78/39.jpg",
     button_text: "Start Tracking",
-    button_link: "/compare",
+    button_link: "/all-products",
   },
   {
     id: 3,

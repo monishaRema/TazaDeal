@@ -1,15 +1,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import useAxios from '../../Hooks/useAxios';
 
-
 const AdvertisementHighlights = () => {
-  const axiosPublic = useAxios()
+  const axiosPublic = useAxios();
 
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ['ads'],
@@ -28,12 +26,19 @@ const AdvertisementHighlights = () => {
   }
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-25">
       <div className="container mx-auto px-5">
-        <h2 className="text-xl font-semibold mb-6 text-center">Explore Promotions</h2>
+        <h2 className="heading text-primary text-center">
+          Ongoing Promotions
+        </h2>
+        <p className="sec-desc max-w-2xl mx-auto text-center">
+          Discover unbeatable daily deals and market-exclusive offers from verified vendors.
+Each promotion is curated to ensure freshness, affordability, and local availability.
+
+        </p>
         <Swiper
           slidesPerView={1}
-          spaceBetween={20}
+          spaceBetween={30}
           pagination={{ clickable: true }}
           autoplay={{ delay: 4000 }}
           loop={true}
@@ -41,18 +46,26 @@ const AdvertisementHighlights = () => {
         >
           {ads.map((ad) => (
             <SwiperSlide key={ad._id}>
-              <div className="bg-accent/10 border border-accent rounded-lg p-6 md:flex gap-6 items-center shadow-sm">
-                <img
-                  src={ad.image}
-                  alt={ad.title}
-                  className="w-full max-w-xs rounded-lg object-cover"
-                />
-                <div className="mt-4 md:mt-0 md:flex-1">
-                  <h3 className="text-lg font-bold text-gray-800">{ad.title}</h3>
-                  <p className="text-sm text-gray-600 mt-2">{ad.description}</p>
-                  <p className="text-xs text-gray-500 mt-4">
-                    — {ad.vendorName} ({ad.vendorEmail})
+              <div className="max-w-6xl mx-auto rounded-3xl p-6 md:p-10 flex flex-col-reverse md:flex-row items-center gap-8 shadow-md"
+              style={{backgroundImage:`url(https://vegshops.vercel.app/assets/img/slider/bg.svg)`}}
+              >
+                
+                {/* Left Text Content */}
+                <div className="w-full md:w-1/2 text-center md:text-left">
+                  <h3 className="text-2xl md:text-3xl font-bold text-green-800">{ad.title}</h3>
+                  <p className="text-gray-700 mt-3">{ad.description}</p>
+                  <p className="text-sm text-gray-500 mt-4">
+                    By : <strong>{ad.vendorName}</strong>
                   </p>
+                </div>
+
+                {/* Right Image */}
+                <div className="w-full md:w-1/2">
+                  <img
+                    src={ad.image}
+                    alt={ad.title}
+                    className="w-full max-h-[300px] object-contain rounded-xl"
+                  />
                 </div>
               </div>
             </SwiperSlide>
@@ -64,3 +77,4 @@ const AdvertisementHighlights = () => {
 };
 
 export default AdvertisementHighlights;
+
