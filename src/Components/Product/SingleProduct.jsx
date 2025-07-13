@@ -24,28 +24,29 @@ const SingleProduct = ({ product }) => {
         <img
           src={product.image}
           alt={product.itemName}
-          className="object-contain max-h-full"
+          className="object-cover w-full max-h-full"
         />
       </div>
+      <span className="text-sm font-semibold absolute top-4 capitalize left-4 bg-primary text-white px-5 py-3 inline-block rounded-md rounded-br-3xl rounded-tr-3xl">
+            {product.category}
+      </span>
 
       {/* Content */}
       <div className="flex flex-col flex-grow justify-between">
-        <div>
-          <p className="text-sm text-green-600 font-semibold mb-1">
-            {product.category}
-          </p>
+        <div className="border-b border-accent/20 mb-5">
+          
 
-          <h2 className="text-lg font-bold text-gray-800 mb-1">
+          <h3 className="card-heading text-primary mb-1">
             {product.itemName}
-          </h2>
+          </h3>
 
-          <p className="text-sm text-gray-500 mb-2">
+          <p className="text-base text-gray-500 mb-2">
             <span className="font-medium text-gray-700">Market:</span>{" "}
             {product.marketName}
           </p>
 
           <p className="text-sm text-gray-500 mb-2 flex items-center gap-1">
-            <FaUserTie /> {product.vendorName}
+             <span className="font-medium text-gray-700">Vendor:</span>{product.vendorName}
           </p>
 
           <p className="text-sm text-gray-500 mb-4">
@@ -56,12 +57,12 @@ const SingleProduct = ({ product }) => {
 
         {/* Price + Button */}
         <div className="mt-auto flex justify-between items-center">
-          <span className="text-lg font-bold text-primary">
-            ${product.priceUnit.toFixed(2)}
+          <span className="text-base md:text-lg font-bold text-accent">
+            ৳{product.priceUnit.toFixed(2)}
           </span>
           <button
             onClick={handleViewDetails}
-            className="btn btn-sm btn-outline text-primary border-primary flex items-center gap-1"
+            className="btn btn-sm btn-outline btn-primary"
           >
             <HiOutlineEye /> View
           </button>
