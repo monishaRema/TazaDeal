@@ -5,7 +5,8 @@ import { siteTitle } from "../Libs/Utility";
 import ProductSection from "../Components/Home/ProductSection";
 import AdvertisementHighlights from "../Components/Home/AdvertisementHighlights";
 import WhyTrustUs from "../Components/Home/WhyTrustUs ";
-import BlogHighlights from "../Components/Home/BlogHighlights";
+import MarketInsights from "../Components/Home/MarketInsights";
+
 
 const Home = () => {
   return (
@@ -16,8 +17,8 @@ const Home = () => {
       <Hero></Hero>
       <ProductSection></ProductSection>
       <AdvertisementHighlights></AdvertisementHighlights>
-      <BlogHighlights></BlogHighlights>
       <WhyTrustUs></WhyTrustUs>
+      <MarketInsights></MarketInsights>
     </>
   );
 };

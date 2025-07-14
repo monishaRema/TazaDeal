@@ -32,7 +32,7 @@ const Review = ({ reviews, productId }) => {
         </p>
       ) : (
         <p className="p-5 mt-4 rounded-md bg-white text-gray-700 shadow-sm">
-          Only buyers can view reviews. You cannot submit a review with role: <strong>{userInfo.role}</strong>.
+          Only buyers can post a review. You cannot submit a review as a <strong>{userInfo.role}</strong>.
         </p>
       )}
     </div>

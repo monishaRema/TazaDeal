@@ -46,13 +46,13 @@ Each promotion is curated to ensure freshness, affordability, and local availabi
         >
           {ads.map((ad) => (
             <SwiperSlide key={ad._id}>
-              <div className="max-w-6xl mx-auto rounded-3xl p-6 md:p-10 flex flex-col-reverse md:flex-row items-center gap-8 shadow-md"
+              <div className="max-w-6xl mx-auto rounded-3xl p-6 md:p-10 relative gap-5 flex flex-col-reverse md:flex-row items-center shadow-md overflow-hidden border-0"
               style={{backgroundImage:`url(https://vegshops.vercel.app/assets/img/slider/bg.svg)`}}
               >
                 
                 {/* Left Text Content */}
-                <div className="w-full md:w-1/2 text-center md:text-left">
-                  <h3 className="text-2xl md:text-3xl font-bold text-green-800">{ad.title}</h3>
+                <div className="w-full md:w-7/12 text-center md:text-left  ads-contant z-10 ">
+                  <h3 className="sub-heading text-primary">{ad.title}</h3>
                   <p className="text-gray-700 mt-3">{ad.description}</p>
                   <p className="text-sm text-gray-500 mt-4">
                     By : <strong>{ad.vendorName}</strong>
@@ -60,11 +60,11 @@ Each promotion is curated to ensure freshness, affordability, and local availabi
                 </div>
 
                 {/* Right Image */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-5/12">
                   <img
                     src={ad.image}
                     alt={ad.title}
-                    className="w-full max-h-[300px] object-contain rounded-xl"
+                    className="w-full max-h-[300px] object-cover rounded-xl"
                   />
                 </div>
               </div>

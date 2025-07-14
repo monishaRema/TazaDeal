@@ -18,13 +18,13 @@ const SingleProduct = ({ product }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition-all relative flex flex-col">
+    <div className="bg-white rounded-xl p-4 relative flex flex-col group overflow-hidden">
       {/* Image */}
       <div className="w-full h-40 overflow-hidden flex justify-center items-center mb-3">
         <img
           src={product.image}
           alt={product.itemName}
-          className="object-cover w-full max-h-full"
+          className="object-contain w-full max-h-full scale-100 rotate-0 group-hover:scale-120 group-hover:-rotate-5 transition-all duration-500 ease-in-out"
         />
       </div>
       <span className="text-sm font-semibold absolute top-4 capitalize left-4 bg-primary text-white px-5 py-3 inline-block rounded-md rounded-br-3xl rounded-tr-3xl">

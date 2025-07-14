@@ -4,25 +4,26 @@ import { FaCheckCircle, FaChartLine, FaUserCheck, FaShieldAlt } from "react-icon
 
 const trustPoints = [
   {
-    icon: <FaCheckCircle className="text-green-500 text-3xl" />,
+    icon: <FaCheckCircle className="text-primary text-6xl" />,
     title: "Verified Vendors",
     desc: "All price data is submitted by verified local vendors to ensure authenticity.",
   },
   {
-    icon: <FaChartLine className="text-blue-500 text-3xl" />,
+    icon: <FaChartLine className="text-blue-500 text-6xl" />,
     title: "Real-Time Trends",
     desc: "We update prices daily so you can track real-time market fluctuations accurately.",
   },
-  {
-    icon: <FaUserCheck className="text-purple-500 text-3xl" />,
-    title: "User Feedback",
-    desc: "Buyers share honest reviews to give you insights beyond just numbers.",
-  },
-  {
-    icon: <FaShieldAlt className="text-yellow-500 text-3xl" />,
+   {
+    icon: <FaShieldAlt className="text-accent text-6xl" />,
     title: "Data Transparency",
     desc: "Each product shows price history, vendor identity, and submission dates.",
   },
+  {
+    icon: <FaUserCheck className="text-cyan-500 text-6xl" />,
+    title: "User Feedback",
+    desc: "Buyers share honest reviews to give you insights beyond just numbers.",
+  },
+ 
 ];
 
 const fadeInUp = {
@@ -69,10 +70,10 @@ const WhyTrustUs = () => {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-lg transition"
+              className="bg-secondary/50 p-6 rounded-lg shadow-sm hover:shadow-md transition"
             >
-              <div className="mb-4">{point.icon}</div>
-              <h4 className="text-xl font-semibold text-gray-800 mb-2">{point.title}</h4>
+              <div className="mb-5 flex justify-center">{point.icon}</div>
+              <h4 className="card-heading mb-5">{point.title}</h4>
               <p className="text-gray-600 text-sm">{point.desc}</p>
             </motion.div>
           ))}
