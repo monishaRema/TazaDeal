@@ -33,9 +33,9 @@ const PriceTrends = () => {
   return (
     <section>
       <div className="table-box-container">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
           {/* Sidebar */}
-          <aside className="md:col-span-1 ">
+          <aside className="col-span-4 lg:col-span-1 ">
             <h3 className="sub-heading mb-5">Tracked Products</h3>
             <ul className="space-y-2">
               {products.map((product) => (
@@ -43,7 +43,7 @@ const PriceTrends = () => {
                   <button
                     className={`w-full text-left px-5 py-3 rounded-md font-medium text-sm border hover:border-accent/80 transition duration-500 ease-in-out flex gap-3 items-center ${
                       selectedProduct?._id === product._id
-                        ? "bg-accent/20 border-accent"
+                        ? "bg-accent/10 border-accent/10"
                         : "border-accent/30"
                     }`}
                     onClick={() => setSelectedProduct(product)}
@@ -56,7 +56,7 @@ const PriceTrends = () => {
           </aside>
 
           {/* Chart */}
-          <div className="md:col-span-3">
+          <div className="col-span-4 lg:col-span-3">
             {selectedProduct ? (
               <div>
                 <div className="mb-10 pl-0 md:pl-10">
