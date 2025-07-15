@@ -36,6 +36,9 @@
 .sec-desc{
   @apply text-base md:text-lg text-gray-500 mb-10;
 }
+.card-desc{
+  @apply text-sm md:text-base text-gray-500;
+}
 .sub-heading{
   @apply text-2xl md:text-3xl text-primary font-semibold;
 }
@@ -115,7 +118,7 @@ input {
   top:50%;
   left:0;
   transform:translateY(-50%);
-  background: #1461311e;
+  background: #6160141e;
   width: 80%;
   height: 130%;
   border-radius: 0% 100% 77% 23% / 100% 52% 48% 0%;

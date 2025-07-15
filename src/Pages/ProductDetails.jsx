@@ -23,6 +23,7 @@ import LoadingSpinner from "../Components/UI/LoadingSpinner";
 import ShowComparison from "../Components/Product/ShowComparison";
 import Review from "../Components/Reviews/Review";
 import CheckoutForm from "../Components/Modals/CheckoutForm";
+import PageHeader from "../Components/Common/PageHeader";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
@@ -58,6 +59,8 @@ const ProductDetails = () => {
     return <p className="text-center mt-10 text-red-500">Product not found.</p>;
   console.log(product);
   return (
+    <>
+     <PageHeader pageTitle={'Product Details'} links={{path:"/all-products",page: "All Product"}} presentPage='Product Details'></PageHeader>
     <div className="container mx-auto px-5 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left: Product Image */}
@@ -187,6 +190,7 @@ const ProductDetails = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

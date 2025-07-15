@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LoadingSpinner from "../Components/UI/LoadingSpinner";
 import NoItemsFound from "../Components/UI/NoItemsFound";
+import PageHeader from "../Components/Common/PageHeader";
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -43,16 +44,8 @@ const AllProducts = () => {
 
   return (
     <>
-      <section className="bg-gray-100 py-15">
-        <div className="container px-5 mx-auto text-center">
-          <p className="mb-5">
-            Home / <span className="text-primary font-bold">All Product</span>
-          </p>
-          <h1 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-            Explore All Products
-          </h1>
-        </div>
-      </section>
+    <PageHeader pageTitle={'Explore All Products'} presentPage='All Product'></PageHeader>
+
       <section className="all-product bg-secondary py-25">
         <div className="container mx-auto px-5">
           <div className="flex flex-col md:flex-row gap-5 justify-between mb-6 items-center">

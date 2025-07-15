@@ -6,6 +6,7 @@ import ProductSection from "../Components/Home/ProductSection";
 import AdvertisementHighlights from "../Components/Home/AdvertisementHighlights";
 import WhyTrustUs from "../Components/Home/WhyTrustUs ";
 import MarketInsights from "../Components/Home/MarketInsights";
+import Newsletter from "../Components/Home/Newsletter";
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       <ProductSection></ProductSection>
       <AdvertisementHighlights></AdvertisementHighlights>
       <WhyTrustUs></WhyTrustUs>
+      <Newsletter></Newsletter>
       <MarketInsights></MarketInsights>
     </>
   );

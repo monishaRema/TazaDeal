@@ -33,7 +33,7 @@ const Footer = () => {
      
       <motion.li variants={navItemVariants}>
         <NavLink
-          to="/about-us"
+          to="/about"
           className="footer-navlink"
         >
           About Us
