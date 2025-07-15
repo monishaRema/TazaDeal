@@ -9,31 +9,9 @@ import LoadingSpinner from "../Components/UI/LoadingSpinner";
 import NoItemsFound from "../Components/UI/NoItemsFound";
 import PageHeader from "../Components/Common/PageHeader";
 import { motion } from "framer-motion";
+import { motionContainerVariants, motionCardVariants } from "../Libs/Utility";
 
 const PRODUCTS_PER_PAGE = 12;
-
-const motionContainerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.25,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const motionCardVariants = {
-  hidden: { opacity: 0, y: 60 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 60,
-      damping: 15,
-    },
-  },
-};
 
 const AllProducts = () => {
   const axiosSecure = useAxiosSecure();
@@ -123,17 +101,9 @@ const AllProducts = () => {
           ) : (
             <>
               {data?.products.length <= 0 && <NoItemsFound items="product" />}
-              <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                initial="hidden"
-                animate="show"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={motionContainerVariants}
-              >
+              <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {data?.products?.map((product) => (
-                  <motion.div key={product._id} variants={motionCardVariants}>
-                    <SingleProduct product={product} />
-                  </motion.div>
+                  <SingleProduct product={product} />
                 ))}
               </motion.div>
 

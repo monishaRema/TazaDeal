@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { FaLightbulb, FaLeaf, FaChartLine, FaBullhorn } from "react-icons/fa";
-
+import {
+  motionContainerVariants,
+  motionCardVariants,
+} from "../../Libs/Utility";
 const insights = [
   {
     icon: <FaLightbulb />,
@@ -28,49 +31,23 @@ const insights = [
   },
 ];
 
-const motionContainerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const motionCardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 80,
-      damping: 14,
-    },
-  },
-};
-
 const MarketInsights = () => {
   return (
-    <motion.section
-      className="relative py-24"
-      variants={motionContainerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.25 }}
-    >
+    <motion.section className="relative py-24">
       <div className="container mx-auto px-5">
         {/* Header */}
         <motion.div
           className="text-center mb-10"
           variants={motionContainerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.25 }}
         >
           <motion.h2
             variants={motionCardVariants}
             className="heading text-accent"
           >
-            Market Insights & Buyer Tips
+            Market Insights & <span className="text-gray-800"> Buyer Tips</span>
           </motion.h2>
           <motion.p
             variants={motionCardVariants}
@@ -82,22 +59,34 @@ const MarketInsights = () => {
         </motion.div>
 
         {/* Cards */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={motionCardVariants}
-        >
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {insights.map((insight, index) => (
             <motion.div
+              variants={motionContainerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.25 }}
               key={index}
               className="border border-accent/30 rounded-xl px-6 py-8 hover:border-accent/80 transition-all duration-300 text-center sm:text-start"
             >
-              <div className="text-accent text-6xl mb-4 flex justify-center sm:justify-start">
+              <motion.div
+                variants={motionCardVariants}
+                className="text-accent text-6xl mb-4 flex justify-center sm:justify-start"
+              >
                 {insight.icon}
-              </div>
-              <h3 className="card-heading font-semibold text-accent mb-2">
+              </motion.div>
+              <motion.h3
+                variants={motionCardVariants}
+                className="card-heading font-semibold text-accent mb-2"
+              >
                 {insight.title}
-              </h3>
-              <p className="card-desc leading-normal">{insight.description}</p>
+              </motion.h3>
+              <motion.p
+                variants={motionCardVariants}
+                className="card-desc leading-normal"
+              >
+                {insight.description}
+              </motion.p>
             </motion.div>
           ))}
         </motion.div>
