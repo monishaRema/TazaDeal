@@ -11,7 +11,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Logo from "../../Components/UI/Logo";
 import ShowToast from "../../Components/UI/ShowToast";
-import { siteTitle } from "../../Libs/Utility";
+import { motionCardVariants, motionContainerVariants, siteTitle } from "../../Libs/Utility";
 
 const Register = () => {
   const { CreateUser, setUser, UpdateUser, user, LogOut } = useAuth();
@@ -76,34 +76,14 @@ const handleRegister = async (e) => {
 };
 
 
-  const containerVariants = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.18,
-        ease: "linear",
-      },
-    },
-  };
 
-  const cardVariants = {
-    hidden: { opacity: 0, x: -50 },
-    show: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeInOut",
-      },
-    },
-  };
 
   return (
     <motion.div
       initial="hidden"
       animate="show"
       viewport={{ once: true, amount: 0.2 }}
-      variants={containerVariants}
+      variants={motionContainerVariants}
       className="form-box w-full p-6 md:p-10 text-gray-700"
     >
       <Helmet>
@@ -112,20 +92,20 @@ const handleRegister = async (e) => {
       <form onSubmit={handleRegister}>
                 <div className="mb-8"><Logo></Logo></div>
         <motion.h1
-          variants={cardVariants}
+          variants={motionCardVariants}
           className="text-3xl md:text-4xl font-bold mb-2 text-primary"
         >
           Register
         </motion.h1>
         <motion.p
-          variants={cardVariants}
+          variants={motionCardVariants}
           className="mb-7 theme-p  text-gray-500"
         >
          Get started with TazaDeal — your gateway to smarter shopping.
         </motion.p>
 
         {/* Form Fields */}
-        <motion.div variants={cardVariants} className="form-group mb-5">
+        <motion.div variants={motionCardVariants} className="form-group mb-5">
           <label htmlFor="name" className="block mb-2 theme-label ">
             Name
           </label>
@@ -139,7 +119,7 @@ const handleRegister = async (e) => {
           />
         </motion.div>
 
-        <motion.div variants={cardVariants} className="form-group mb-5">
+        <motion.div variants={motionCardVariants} className="form-group mb-5">
           <label htmlFor="email" className="block mb-2  theme-label">
             Email
           </label>
@@ -153,7 +133,7 @@ const handleRegister = async (e) => {
           />
         </motion.div>
 
-        <motion.div variants={cardVariants} className="form-group mb-5">
+        <motion.div variants={motionCardVariants} className="form-group mb-5">
           <label htmlFor="photoURL" className="block mb-2 theme-label ">
             Photo URL
           </label>
@@ -168,7 +148,7 @@ const handleRegister = async (e) => {
         </motion.div>
 
         <motion.div
-          variants={cardVariants}
+          variants={motionCardVariants}
           className="form-group mb-5 relative"
         >
           <label htmlFor="password" className="block mb-2 theme-label">
@@ -195,14 +175,14 @@ const handleRegister = async (e) => {
 
         {errorMessage && (
           <motion.p
-            variants={cardVariants}
+            variants={motionCardVariants}
             className="text-red-500 text-sm text-center my-3"
           >
             {errorMessage}
           </motion.p>
         )}
 
-        <motion.div variants={cardVariants}>
+        <motion.div variants={motionCardVariants}>
           <motion.button
             type="submit"
             className="btn btn-accent text-white block w-full uppercase "
@@ -213,7 +193,7 @@ const handleRegister = async (e) => {
       </form>
 
       <motion.p
-        variants={cardVariants}
+        variants={motionCardVariants}
         className="font-semibold text-center mt-2 "
       >
         Already Have An Account?{" "}
@@ -223,7 +203,7 @@ const handleRegister = async (e) => {
       </motion.p>
 
       <motion.div
-        variants={cardVariants}
+        variants={motionCardVariants}
         className="flex items-center my-4 gap-2"
       >
         <hr className="flex-grow border-gray-300" />
@@ -231,7 +211,7 @@ const handleRegister = async (e) => {
         <hr className="flex-grow border-gray-300" />
       </motion.div>
 
-      <motion.div variants={cardVariants} className="social-login mt-5">
+      <motion.div variants={motionCardVariants} className="social-login mt-5">
         <SocialLogin></SocialLogin>
       </motion.div>
     </motion.div>

@@ -19,6 +19,8 @@ const PriceTrends = () => {
       return data;
     },
   });
+  console.log(products)
+
 
   useEffect(() => {
     if (products.length > 0) {
@@ -38,7 +40,9 @@ const PriceTrends = () => {
           <aside className="col-span-4 lg:col-span-1 ">
             <h3 className="sub-heading mb-5">Tracked Products</h3>
             <ul className="space-y-2">
-              {products.map((product) => (
+              {products.length > 0 && products.map((product) => (
+                
+
                 <li key={product._id}>
                   <button
                     className={`w-full text-left px-5 py-3 rounded-md font-medium text-sm border hover:border-accent/80 transition duration-500 ease-in-out flex gap-3 items-center ${
@@ -52,20 +56,20 @@ const PriceTrends = () => {
                   </button>
                 </li>
               ))}
-            </ul>
+            </ul>   
           </aside>
-
+          
           {/* Chart */}
           <div className="col-span-4 lg:col-span-3">
             {selectedProduct ? (
               <div>
-                <div className="mb-10 pl-0 md:pl-10">
+                <div className="mb-10 pl-0 md:pl-5">
                   <h2 className="text-2xl text-accent font-semibold mb-3 flex gap-2 items-center">
                      <img src={selectedProduct?.image} alt={selectedProduct?.itemName} className="size-7 rounded-xs"></img> {selectedProduct?.itemName}
                   </h2>
-                  <p className="text-gray-600 text-sm">
-                   <strong>Market : </strong>{selectedProduct.marketName} | <br />
-                    <strong>Vendor : </strong> {selectedProduct.vendorName}
+                  <p className="text-gray-600 text-sm md:text-base">
+                     <span>Market : {selectedProduct.marketName}</span><br />
+                     <span>Vendor :  {selectedProduct.vendorName}</span>
                   </p>
                 </div>
                 <Comperison prices={selectedProduct.prices} />
