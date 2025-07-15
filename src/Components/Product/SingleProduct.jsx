@@ -9,6 +9,7 @@ import {
   motionContainerVariants,
   motionCardVariants,
 } from "../../Libs/Utility";
+import AddWatchList from "../Common/AddWatchList";
 
 const SingleProduct = ({ product }) => {
   const { user } = useAuth();
@@ -47,6 +48,16 @@ const SingleProduct = ({ product }) => {
       >
         {product.category}
       </motion.span>
+      {user && (
+        <>
+          <motion.span
+            variants={motionCardVariants}
+            className="absolute top-4 right-4"
+          >
+            <AddWatchList id={product?._id}></AddWatchList>
+          </motion.span>
+        </>
+      )}
 
       {/* Content */}
       <div className="flex flex-col flex-grow justify-between">
