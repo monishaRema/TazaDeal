@@ -25,42 +25,9 @@ import ShowComparison from "../Components/Product/ShowComparison";
 import Review from "../Components/Reviews/Review";
 import CheckoutForm from "../Components/Modals/CheckoutForm";
 import PageHeader from "../Components/Common/PageHeader";
+import { motionCardVariants, motionContainerVariants } from "../Libs/Utility";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
-
-const containerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-       staggerChildren: 0.25,
-       delayChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants = {
-   hidden: { opacity: 0, y: 60 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 60,
-      damping: 15,
-    },
-  },
-};
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -103,14 +70,14 @@ const ProductDetails = () => {
 
       <motion.div className="container mx-auto px-5 py-12">
         <motion.div
-         variants={containerVariants}
+          variants={motionContainerVariants}
           initial="hidden"
-          animate="show"
+          whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
         >
           <motion.div
-            variants={cardVariants}
+            variants={motionCardVariants}
             className="rounded-lg overflow-hidden"
           >
             <img
@@ -121,20 +88,23 @@ const ProductDetails = () => {
           </motion.div>
 
           <motion.div>
-            <motion.p variants={cardVariants} className="text-accent flex items-baseline gap-2 ">
+            <motion.p
+              variants={motionCardVariants}
+              className="text-accent flex items-baseline gap-2 "
+            >
               <FaTag className="text-base" />
               {product.category}
             </motion.p>
 
             <motion.h2
-              variants={cardVariants}
+              variants={motionCardVariants}
               className="text-3xl md:text-4xl font-bold text-primary mb-1"
             >
               {product.itemName}
             </motion.h2>
 
             <motion.div
-              variants={cardVariants}
+              variants={motionCardVariants}
               className="flex items-center gap-2 text-accent mb-5"
             >
               {[...Array(5)].map((_, idx) => (
@@ -147,7 +117,7 @@ const ProductDetails = () => {
             </motion.div>
 
             <motion.div
-              variants={cardVariants}
+              variants={motionCardVariants}
               className="text-2xl md-text-3xl font-bold text-primary"
             >
               ৳{product.priceUnit}
@@ -155,7 +125,7 @@ const ProductDetails = () => {
 
             <div className="product-meta mt-5">
               <motion.p
-                variants={cardVariants}
+                variants={motionCardVariants}
                 className="text-gray-600 flex items-baseline gap-2"
               >
                 <FaCalendarAlt className="text-primary text-base" />
@@ -163,14 +133,17 @@ const ProductDetails = () => {
               </motion.p>
 
               <motion.p
-                variants={cardVariants}
+                variants={motionCardVariants}
                 className="text-gray-600 flex items-baseline gap-2"
               >
                 <FaShoppingCart className="text-primary text-base" />{" "}
                 {product.marketName}
               </motion.p>
 
-              <motion.p variants={cardVariants} className="text-gray-600 flex items-baseline gap-2">
+              <motion.p
+                variants={motionCardVariants}
+                className="text-gray-600 flex items-baseline gap-2"
+              >
                 <FaUserTie className="text-primary text-base" />{" "}
                 {product.vendorName}
               </motion.p>
@@ -178,7 +151,7 @@ const ProductDetails = () => {
 
             <div className="price-history my-5">
               <motion.h4
-                variants={cardVariants}
+                variants={motionCardVariants}
                 className="mb-3 text-2xl md:text-3xl font-semibold text-primary flex items-baseline gap-2"
               >
                 Price History
@@ -186,7 +159,7 @@ const ProductDetails = () => {
 
               {product?.prices?.map((price, idx) => (
                 <motion.div
-                  variants={cardVariants}
+                  variants={motionCardVariants}
                   key={idx}
                   className="text-gray-600 flex items-baseline gap-2 mb-2"
                 >
@@ -202,18 +175,24 @@ const ProductDetails = () => {
             </div>
 
             <div className="text-gray-600 flex flex-col items-start gap-1 mt-2">
-              <motion.p variants={cardVariants} className="flex gap-2 items-baseline text-primary">
+              <motion.p
+                variants={motionCardVariants}
+                className="flex gap-2 items-baseline text-primary"
+              >
                 <FaInfoCircle className="text-lg" />
                 <span className="font-semibold text-lg">Short Description</span>
               </motion.p>
-              <motion.p variants={cardVariants}>
+              <motion.p variants={motionCardVariants}>
                 {product.itemDescription?.length > 100
                   ? product.itemDescription.slice(0, 100) + "..."
                   : product.itemDescription}
               </motion.p>
             </div>
 
-            <motion.div variants={cardVariants} className="flex flex-wrap gap-4 mt-4">
+            <motion.div
+              variants={motionCardVariants}
+              className="flex flex-wrap gap-4 mt-4"
+            >
               <button
                 onClick={() => addToWatchlist()}
                 className="btn btn-outline btn-accent hover:text-white"
@@ -235,38 +214,47 @@ const ProductDetails = () => {
         </motion.div>
 
         <motion.div
-          variants={fadeInUp}
-          className="bg-white rounded-2xl p-5 mt-10"
+          variants={motionContainerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
         >
-          <h3 className="text-primary sub-heading mb-2">Product Description</h3>
-          <p>{product.itemDescription}</p>
-        </motion.div>
+          <motion.div
+            variants={motionCardVariants}
+            className="bg-white rounded-2xl p-5 mt-10"
+          >
+            <h3 className="text-primary sub-heading mb-2">
+              Product Description
+            </h3>
+            <p>{product.itemDescription}</p>
+          </motion.div>
 
-        <motion.div variants={fadeInUp} className="mt-16">
-          <Review reviews={product.reviews} productId={product._id} />
-        </motion.div>
+          <motion.div variants={motionCardVariants} className="mt-16">
+            <Review reviews={product.reviews} productId={product._id} />
+          </motion.div>
 
-        <motion.div variants={fadeInUp} className="mt-12">
-          <ShowComparison productId={product._id} prices={product.prices} />
-        </motion.div>
+          <motion.div variants={motionCardVariants} className="mt-12">
+            <ShowComparison productId={product._id} prices={product.prices} />
+          </motion.div>
 
-        {showPaymentModal && (
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-              <Elements stripe={stripePromise}>
-                <CheckoutForm
-                  closeModal={() => setShowPaymentModal(false)}
-                  refetch={refetch}
-                  orderData={{
-                    productId: product._id,
-                    buyerId: userInfo?.email,
-                    totalPrice: product?.priceUnit,
-                  }}
-                />
-              </Elements>
+          {showPaymentModal && (
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+                <Elements stripe={stripePromise}>
+                  <CheckoutForm
+                    closeModal={() => setShowPaymentModal(false)}
+                    refetch={refetch}
+                    orderData={{
+                      productId: product._id,
+                      buyerId: userInfo?.email,
+                      totalPrice: product?.priceUnit,
+                    }}
+                  />
+                </Elements>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </motion.div>
       </motion.div>
     </>
   );

@@ -13,6 +13,7 @@ import {
 
 const AdvertisementHighlights = () => {
   const axiosPublic = useAxios();
+  
 
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ["ads"],

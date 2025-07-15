@@ -6,7 +6,7 @@ const motionContainerVariants = {
   show: {
     transition: {
       staggerChildren: 0.25,
-      delayChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };

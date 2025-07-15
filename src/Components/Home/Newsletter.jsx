@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import React from "react";
-import BG from "../../assets/bg1.png"
-import { motionContainerVariants, motionCardVariants } from "../../Libs/Utility";
-
+import BG from "../../assets/bg1.png";
+import {
+  motionContainerVariants,
+  motionCardVariants,
+} from "../../Libs/Utility";
 
 const Newsletter = () => {
   return (
@@ -12,12 +14,11 @@ const Newsletter = () => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
-      style={{backgroundImage:`url(${BG})`}}
+      style={{ backgroundImage: `url(${BG})` }}
     >
       <div className="container mx-auto px-5">
         <motion.div
           className="max-w-4xl mx-auto text-center relative z-10"
-          variants={motionContainerVariants}
         >
           <motion.h3
             className="text-base md:text-lg text-accent font-bold mb-2"
@@ -64,4 +65,3 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
-

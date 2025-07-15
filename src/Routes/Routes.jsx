@@ -26,6 +26,7 @@ import UpdateAdvertisement from "../Pages/Dashboard/Vendor/UpdateAdvertisement";
 import ProductDetails from "../Pages/ProductDetails";
 import MyOrderList from "../Pages/Dashboard/User/MyOrderList";
 import About from "../Pages/About";
+import Error from "../Pages/Error"
 
 
 export const routes = createBrowserRouter([
@@ -180,4 +181,8 @@ export const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/*',
+   Component: Error
+  }
 ]);

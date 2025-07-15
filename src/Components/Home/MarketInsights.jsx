@@ -4,6 +4,7 @@ import {
   motionContainerVariants,
   motionCardVariants,
 } from "../../Libs/Utility";
+
 const insights = [
   {
     icon: <FaLightbulb />,

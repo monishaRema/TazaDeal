@@ -23,6 +23,9 @@
 .navlink.active {
   @apply text-accent;
 }
+.navlink.active {
+  @apply font-bold;
+}
 
 .footer-navlink{
   @apply text-base md:text-lg font-medium inline-block py-1 hover:translate-x-2.5;

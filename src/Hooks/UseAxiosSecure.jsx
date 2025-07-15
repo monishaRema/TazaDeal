@@ -36,7 +36,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [axiosSecure, navigate]);
+  }, [navigate, logOut]);
 
   return axiosSecure;
 };

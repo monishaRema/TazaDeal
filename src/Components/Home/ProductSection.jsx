@@ -32,8 +32,13 @@ const ProductSection = () => {
     >
       <div className="container mx-auto px-4">
         <motion.div className="text-center mb-10">
-          <motion.h2 variants={motionCardVariants} className="heading">Latest <span className="text-primary">Products</span></motion.h2>
-          <motion.p variants={motionCardVariants} className="sec-desc max-w-xl mx-auto">
+          <motion.h2 variants={motionCardVariants} className="heading">
+            Latest <span className="text-primary">Products</span>
+          </motion.h2>
+          <motion.p
+            variants={motionCardVariants}
+            className="sec-desc max-w-xl mx-auto"
+          >
             Discover fresh local updates from vendors. Products reflect the most
             recent market pricing from regional bazaars.
           </motion.p>
@@ -41,7 +46,9 @@ const ProductSection = () => {
 
         <motion.div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.length > 0 &&
-            products.map((product) => <SingleProduct product={product} />)}
+            products.map((product) => (
+              <SingleProduct key={product._id} product={product} />
+            ))}
         </motion.div>
       </div>
     </motion.section>
