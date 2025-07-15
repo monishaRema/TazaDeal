@@ -54,7 +54,7 @@ const motionCardVariants = {
 const MarketInsights = () => {
   return (
     <motion.section
-      className="relative bg-gray-100 py-24"
+      className="relative py-24"
       variants={motionContainerVariants}
       initial="hidden"
       whileInView="show"
@@ -63,45 +63,41 @@ const MarketInsights = () => {
       <div className="container mx-auto px-5">
         {/* Header */}
         <motion.div
-          className="md:text-center mb-10"
+          className="text-center mb-10"
           variants={motionContainerVariants}
         >
           <motion.h2
             variants={motionCardVariants}
-            className="text-3xl md:text-4xl font-bold text-accent mb-4"
+            className="heading text-accent"
           >
             Market Insights & Buyer Tips
           </motion.h2>
           <motion.p
             variants={motionCardVariants}
-            className="max-w-2xl md:mx-auto sec-desc"
+            className="max-w-2xl mx-auto sec-desc"
           >
-            Stay ahead of the curve with expert articles, market trends, and
-            vendor advice. Our blog brings clarity to everyday pricing, helping
-            you shop smarter in your local markets.
+            Stay ahead with articles, market trends, and vendor advice. Our blog
+            brings clarity to everyday pricing, helping you shop smarter.
           </motion.p>
         </motion.div>
 
         {/* Cards */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={motionContainerVariants}
+          variants={motionCardVariants}
         >
           {insights.map((insight, index) => (
             <motion.div
               key={index}
-              variants={motionCardVariants}
-              className="border border-accent/30 rounded-xl px-6 py-8 hover:border-accent/80 transition-all duration-300"
+              className="border border-accent/30 rounded-xl px-6 py-8 hover:border-accent/80 transition-all duration-300 text-center sm:text-start"
             >
-              <div className="text-accent text-6xl mb-4 flex">
+              <div className="text-accent text-6xl mb-4 flex justify-center sm:justify-start">
                 {insight.icon}
               </div>
               <h3 className="card-heading font-semibold text-accent mb-2">
                 {insight.title}
               </h3>
-              <p className="card-desc leading-normal">
-                {insight.description}
-              </p>
+              <p className="card-desc leading-normal">{insight.description}</p>
             </motion.div>
           ))}
         </motion.div>

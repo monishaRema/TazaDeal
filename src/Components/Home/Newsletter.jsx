@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import BG from "../../assets/bg1.png"
 
 const motionContainerVariants = {
   hidden: {},
@@ -27,15 +28,16 @@ const motionCardVariants = {
 const Newsletter = () => {
   return (
     <motion.section
-      className="bg-gray-50 py-25"
+      className="bg-gray-50 section-bg-image py-32 relative z-10 "
       variants={motionContainerVariants}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
+      style={{backgroundImage:`url(${BG})`}}
     >
       <div className="container mx-auto px-5">
         <motion.div
-          className="max-w-4xl mx-auto text-center p-10 relative z-10"
+          className="max-w-4xl mx-auto text-center relative z-10"
           variants={motionContainerVariants}
         >
           <motion.h3
@@ -46,7 +48,7 @@ const Newsletter = () => {
           </motion.h3>
 
           <motion.h2
-            className="text-3xl md:text-4xl font-bold leading-tight mb-4"
+            className="text-2xl md:text-4xl font-bold leading-tight mb-4"
             variants={motionCardVariants}
           >
             Subscribe to Our Newsletter to <br />

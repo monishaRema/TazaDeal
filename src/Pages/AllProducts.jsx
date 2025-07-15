@@ -8,8 +8,32 @@ import "react-datepicker/dist/react-datepicker.css";
 import LoadingSpinner from "../Components/UI/LoadingSpinner";
 import NoItemsFound from "../Components/UI/NoItemsFound";
 import PageHeader from "../Components/Common/PageHeader";
+import { motion } from "framer-motion";
 
 const PRODUCTS_PER_PAGE = 12;
+
+const motionContainerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const motionCardVariants = {
+  hidden: { opacity: 0, y: 60 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 60,
+      damping: 15,
+    },
+  },
+};
 
 const AllProducts = () => {
   const axiosSecure = useAxiosSecure();
@@ -44,12 +68,22 @@ const AllProducts = () => {
 
   return (
     <>
-    <PageHeader pageTitle={'Explore All Products'} presentPage='All Product'></PageHeader>
+      <PageHeader pageTitle="Explore All Products" presentPage="All Product" />
 
       <section className="all-product bg-secondary py-25">
-        <div className="container mx-auto px-5">
-          <div className="flex flex-col md:flex-row gap-5 justify-between mb-6 items-center">
-            <div className="flex-1 flex gap-2 items-center">
+        <motion.div className="container mx-auto px-5">
+          {/* Filter Controls */}
+          <motion.div
+            className="flex flex-col md:flex-row gap-5 justify-between mb-6 items-start md:items-center"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={motionContainerVariants}
+          >
+            <motion.div
+              variants={motionCardVariants}
+              className="flex gap-2 items-center w-full md:max-w-md"
+            >
               <label className="font-semibold mr-2">Sort by:</label>
               <select
                 value={sortOrder}
@@ -60,9 +94,12 @@ const AllProducts = () => {
                 <option value="asc">Price Low to High</option>
                 <option value="desc">Price High to Low</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className=" flex gap-2 items-center">
+            <motion.div
+              variants={motionCardVariants}
+              className="flex gap-2 items-center w-full md:max-w-xs"
+            >
               <label className="font-semibold mr-2">Filter by Date:</label>
               <DatePicker
                 selected={selectedDate}
@@ -70,41 +107,48 @@ const AllProducts = () => {
                   setSelectedDate(date);
                   setPage(1);
                 }}
-                className="input input-bordered input-sm"
+                className="input input-bordered input-sm foucus:outline-0 focus:border-accent w-full"
                 placeholderText="Select date"
                 maxDate={new Date()}
                 isClearable
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
+          {/* Content */}
           {isLoading ? (
-            <LoadingSpinner></LoadingSpinner>
+            <LoadingSpinner />
           ) : isError ? (
             <p className="text-red-500">Failed to fetch products.</p>
           ) : (
             <>
-            {
-              data?.products.length <= 0 && <NoItemsFound  items={'product'}></NoItemsFound>
-            }
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {data?.products.length <= 0 && <NoItemsFound items="product" />}
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                initial="hidden"
+                animate="show"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={motionContainerVariants}
+              >
                 {data?.products?.map((product) => (
-                  <SingleProduct key={product._id} product={product} />
+                  <motion.div key={product._id} variants={motionCardVariants}>
+                    <SingleProduct product={product} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {data?.totalPages > 1 && (
-                <div className="mt-8">
+                <motion.div className="mt-8" variants={motionCardVariants}>
                   <Pagination
                     totalPages={data.totalPages}
                     page={page}
                     setPage={setPage}
                   />
-                </div>
+                </motion.div>
               )}
             </>
           )}
-        </div>
+        </motion.div>
       </section>
     </>
   );
