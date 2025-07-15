@@ -8,6 +8,8 @@ import Pagination from "../../../Components/UI/Pagination";
 import { format } from "date-fns";
 import handleDelete from "../../../Hooks/handleDelelte";
 import ShowToast from "../../../Components/UI/ShowToast";
+import { Helmet } from "@dr.pogodin/react-helmet";
+import { siteTitle } from "../../../Libs/Utility";
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -47,6 +49,9 @@ const MyProducts = () => {
 
   return (
     <div className="table-box-container">
+      <Helmet>
+        <title>{siteTitle} | Vendor: Products</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         My Products
       </h2>

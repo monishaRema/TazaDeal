@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
-import { motionCardVariants, motionContainerVariants } from "../Libs/Utility";
+import { motionCardVariants, motionContainerVariants, siteTitle } from "../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const Error = () => {
   return (
@@ -14,6 +15,9 @@ const Error = () => {
         variants={motionContainerVariants}
         className="min-h-screen flex items-center justify-center bg-secondary px-5"
       >
+        <Helmet>
+        <title>{siteTitle} | 404</title>
+      </Helmet>
         <div className="text-center max-w-xl">
           <motion.h1
             animate={{

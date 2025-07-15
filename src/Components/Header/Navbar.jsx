@@ -1,10 +1,7 @@
 import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
-
 import { AuthContext } from "../../Contex/AuthContex";
 import { Tooltip } from "react-tooltip";
-import Swal from "sweetalert2";
-import { Slide, toast } from "react-toastify";
 import UserAvator from "../../assets/userAvator.png";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { delay, motion } from "framer-motion";
@@ -13,7 +10,7 @@ import Logout from "../Common/Logout";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const { user} = use(AuthContext);
+  const { user } = use(AuthContext);
   const photoUrl = user && user.photoURL ? user.photoURL : UserAvator;
 
   const navVarient = {
@@ -99,7 +96,7 @@ const Navbar = () => {
                           Home
                         </NavLink>
                       </motion.li>
-                       <motion.li
+                      <motion.li
                         onClick={() => setNavOpen(false)}
                         variants={cardVariants}
                       >
@@ -116,13 +113,24 @@ const Navbar = () => {
                           About Us
                         </NavLink>
                       </motion.li>
-                      {user && <></>}
+                      {user && (
+                        <>
+                          <motion.li
+                            onClick={() => setNavOpen(false)}
+                            variants={cardVariants}
+                          >
+                            <NavLink className={"navlink"} to="/dashboard">
+                              Dashboard
+                            </NavLink>
+                          </motion.li>
+                        </>
+                      )}
                     </motion.ul>
                   )}
                 </div>
               </div>
               <Link className="" to="/">
-                <Logo nav="nav" ></Logo>
+                <Logo nav="nav"></Logo>
               </Link>
             </div>
 
@@ -136,7 +144,7 @@ const Navbar = () => {
                     Home
                   </NavLink>
                 </motion.li>
-                           <motion.li variants={navItemVariants}>
+                <motion.li variants={navItemVariants}>
                   <NavLink
                     to="/all-products"
                     className="navlink text-base md:text-lg font-medium inline-block py-3 px-6 "
@@ -161,17 +169,26 @@ const Navbar = () => {
               >
                 {user && (
                   <>
-                  <Link
+                    <Link
                       className="size-10 rounded-full overflow-hidden"
                       data-tooltip-id="profile-tooltip"
                     >
-                      <img src={photoUrl} alt="" className="size-full object-cover" />
+                      <img
+                        src={photoUrl}
+                        alt={user?.displayName}
+                        className="size-full object-cover"
+                      />
                     </Link>
-                  <Link to={'/dashboard'} className="nav-btn">
 
-                    Dashboard
-                  </Link>
-                    
+                    <span className="hidden lg:block">
+                      <Link
+                        to={"/dashboard"}
+                        className="nav-btn "
+                      >
+                        Dashboard
+                      </Link>
+                    </span>
+
                     <Tooltip
                       id="profile-tooltip"
                       place="bottom"

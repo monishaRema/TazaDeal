@@ -7,8 +7,9 @@ import useAuth from "../Hooks/useAuth";
 import { motion } from "framer-motion";
 import { FaHandsHelping, FaEye } from "react-icons/fa";
 import { GiPriceTag } from "react-icons/gi";
-import { motionContainerVariants, motionCardVariants } from "../Libs/Utility";
+import { motionContainerVariants, motionCardVariants, siteTitle } from "../Libs/Utility";
 import HowItWorks from "../Components/Home/HowItWorks";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const About = () => {
   const { user } = useAuth();
@@ -17,6 +18,9 @@ const About = () => {
     <>
       <PageHeader pageTitle={"About Us"} presentPage={"about"}></PageHeader>
       <section className="bg-secondary py-24">
+        <Helmet>
+        <title>{siteTitle} | About</title>
+      </Helmet>
         <div className="container mx-auto px-5">
           <motion.div
             variants={motionContainerVariants}

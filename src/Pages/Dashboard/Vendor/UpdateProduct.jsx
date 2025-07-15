@@ -10,6 +10,9 @@ import ShowToast from "../../../Components/UI/ShowToast";
 import useUserData from "../../../Hooks/useUserData";
 import useAuth from "../../../Hooks/useAuth";
 
+import { siteTitle } from "../../../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
+
 const UpdateProduct = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -114,6 +117,9 @@ const UpdateProduct = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 shadow bg-white rounded-lg">
+      <Helmet>
+        <title>{siteTitle} | Vendor: Ads</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         Update Product
       </h2>

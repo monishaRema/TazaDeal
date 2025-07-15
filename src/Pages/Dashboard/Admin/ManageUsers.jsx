@@ -4,6 +4,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ShowToast from "../../../Components/UI/ShowToast";
 import Pagination from "../../../Components/UI/Pagination";
 import useDebounce from "../../../Hooks/useDebounce";
+import { Helmet } from "@dr.pogodin/react-helmet";
+import { siteTitle } from "../../../Libs/Utility";
 
 const USERS_PER_PAGE = 10;
 const roles = ["user", "vendor", "admin"];
@@ -81,6 +83,9 @@ const ManageUsers = () => {
 
   return (
     <div className="table-box-container">
+            <Helmet>
+        <title>{siteTitle} | Admin: Users</title>
+      </Helmet>
       <div className="flex flex-col gap-5 md:flex-row justify-between mb-5">
             <h2 className="sub-heading">
         Manage Users

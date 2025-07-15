@@ -8,6 +8,9 @@ import useAuth from "../../../Hooks/useAuth";
 import Pagination from "../../../Components/UI/Pagination";
 import handleDelete from "../../../Hooks/handleDelelte";
 import ShowToast from "../../../Components/UI/ShowToast";
+import { siteTitle } from "../../../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
+
 
 const ADS_PER_PAGE = 10;
 
@@ -47,6 +50,9 @@ const MyAdvertisements = () => {
 
   return (
     <div className="table-box-container">
+      <Helmet>
+        <title>{siteTitle} | Vendor: Ads</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         My Advertisements
       </h2>

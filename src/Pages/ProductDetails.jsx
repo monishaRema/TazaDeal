@@ -25,7 +25,8 @@ import ShowComparison from "../Components/Product/ShowComparison";
 import Review from "../Components/Reviews/Review";
 import CheckoutForm from "../Components/Modals/CheckoutForm";
 import PageHeader from "../Components/Common/PageHeader";
-import { motionCardVariants, motionContainerVariants } from "../Libs/Utility";
+import { motionCardVariants, motionContainerVariants, siteTitle } from "../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
@@ -69,6 +70,9 @@ const ProductDetails = () => {
       />
 
       <motion.div className="container mx-auto px-5 py-12">
+        <Helmet>
+        <title>{siteTitle} | Product Details</title>
+      </Helmet>
         <motion.div
           variants={motionContainerVariants}
           initial="hidden"

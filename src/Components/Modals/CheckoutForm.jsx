@@ -3,9 +3,11 @@ import useUserData from "../../Hooks/useUserData";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import ShowToast from "../UI/ShowToast";
+import { useNavigate } from "react-router";
 
 const CheckoutForm = ({ closeModal, orderData , refetch}) => {
   const { userInfo } = useUserData();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
@@ -77,6 +79,8 @@ const CheckoutForm = ({ closeModal, orderData , refetch}) => {
         if (data?.insertedId) {
           ShowToast("success", "Order Placed Successfully!");
           refetch()
+          navigate('/dashboard/my-orders')
+          
         }
       } catch (err) {
         console.error("Order saving failed", err);

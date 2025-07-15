@@ -76,7 +76,7 @@ const DashboardSidebar = () => {
       initial="hidden"
       animate="show"
       variants={navVarient}
-      className="w-full py-2 md:py-5 flex flex-col gap-2 min-h-screen"
+      className="w-full py-2 md:py-5 flex flex-col gap-2 h-full"
     >
        <motion.li variants={navItemVariants} className="mb-5">
          <div className='flex gap-1 items-center'>
@@ -124,7 +124,7 @@ const DashboardSidebar = () => {
       {/*********************  GENERAL MENU **************************** */  }
        <SidebarLink to="/dashboard/my-profile" icon={<FaUserCircle />} label="My Profile" />
 
-      <motion.li variants={navItemVariants} className="mt-auto">
+      <motion.li variants={navItemVariants} className="mt-8">
   
             
         <Logout classes="group flex items-center gap-4 px-3 md:px-5 py-3 rounded-md md:rounded-lg transition cursor-pointer

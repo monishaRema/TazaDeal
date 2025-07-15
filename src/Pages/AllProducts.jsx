@@ -9,7 +9,8 @@ import LoadingSpinner from "../Components/UI/LoadingSpinner";
 import NoItemsFound from "../Components/UI/NoItemsFound";
 import PageHeader from "../Components/Common/PageHeader";
 import { motion } from "framer-motion";
-import { motionContainerVariants, motionCardVariants } from "../Libs/Utility";
+import { motionContainerVariants, motionCardVariants, siteTitle } from "../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -49,6 +50,9 @@ const AllProducts = () => {
       <PageHeader pageTitle="Explore All Products" presentPage="All Product" />
 
       <section className="all-product bg-secondary py-25">
+        <Helmet>
+        <title>{siteTitle} | All Product</title>
+      </Helmet>
         <motion.div className="container mx-auto px-5">
           {/* Filter Controls */}
           <motion.div

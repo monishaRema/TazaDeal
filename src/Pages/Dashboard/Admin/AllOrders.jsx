@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../Components/UI/LoadingSpinner";
+import { siteTitle } from "../../../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
+
 
 const AllOrders = () => {
   const axiosSecure = useAxiosSecure();
@@ -30,6 +33,9 @@ const AllOrders = () => {
 
   return (
     <div className="table-box-container">
+            <Helmet>
+        <title>{siteTitle} | Admin: All Orders</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">All Orders</h2>
 
       <div className="overflow-x-auto">

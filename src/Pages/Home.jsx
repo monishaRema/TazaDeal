@@ -7,6 +7,7 @@ import AdvertisementHighlights from "../Components/Home/AdvertisementHighlights"
 import WhyTrustUs from "../Components/Home/WhyTrustUs ";
 import MarketInsights from "../Components/Home/MarketInsights";
 import Newsletter from "../Components/Home/Newsletter";
+import HowItWorks from "../Components/Home/HowItWorks";
 
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
       </Helmet>
       <Hero></Hero>
       <ProductSection></ProductSection>
+      <HowItWorks></HowItWorks>
       <AdvertisementHighlights></AdvertisementHighlights>
       <WhyTrustUs></WhyTrustUs>
       <Newsletter></Newsletter>

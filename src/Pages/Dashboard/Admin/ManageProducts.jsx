@@ -8,6 +8,8 @@ import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import handleDelete from "../../../Hooks/handleDelelte";
+import { siteTitle } from "../../../Libs/Utility";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -82,6 +84,9 @@ const ManageProducts = () => {
 
   return (
     <div className="table-box-container">
+            <Helmet>
+        <title>{siteTitle} | Admin: Products</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         Manage Products
       </h2>

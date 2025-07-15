@@ -2,6 +2,8 @@ import React from "react";
 import { format } from "date-fns";
 import useUserData from "../../Hooks/useUserData";
 import { Link } from "react-router";
+import { siteTitle } from "../../Libs/Utility";
+import { Helmet } from "react-helmet";
 
 
 const MyProfile = () => {
@@ -17,6 +19,9 @@ console.log(userInfo)
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
+      <Helmet>
+        <title>{siteTitle} | My Profile</title>
+      </Helmet>
 
       <div className="flex flex-col md:flex-row gap-6 p-6">
         

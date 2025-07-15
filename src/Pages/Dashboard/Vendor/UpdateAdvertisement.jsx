@@ -7,6 +7,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import ShowToast from "../../../Components/UI/ShowToast";
 import useAuth from "../../../Hooks/useAuth";
 import LoadingSpinner from "../../../Components/UI/LoadingSpinner";
+import { Helmet } from "@dr.pogodin/react-helmet";
+import { siteTitle } from "../../../Libs/Utility";
 
 const UpdateAdvertisement = () => {
   const { id } = useParams();
@@ -104,6 +106,9 @@ const UpdateAdvertisement = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 shadow bg-white rounded-lg">
+      <Helmet>
+        <title>{siteTitle} | Vendor: Ads</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         Update Advertisement
       </h2>

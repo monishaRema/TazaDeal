@@ -50,7 +50,7 @@ const MyOrderList = () => {
                     to={`/product-details/${order.productId}`}
                     className="btn btn-sm btn-outline btn-accent"
                   >
-                    View Details
+                    View
                   </Link>
                 </td>
               </tr>

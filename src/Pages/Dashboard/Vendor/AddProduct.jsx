@@ -7,6 +7,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import ShowToast from "../../../Components/UI/ShowToast";
 import { useNavigate } from "react-router";
+import { Helmet } from "@dr.pogodin/react-helmet";
+import { siteTitle } from "../../../Libs/Utility";
 
 const AddProduct = () => {
   const { user } = useAuth();
@@ -67,6 +69,9 @@ const AddProduct = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 shadow bg-white rounded-lg">
+      <Helmet>
+        <title>{siteTitle} | Vendor: Add Product</title>
+      </Helmet>
       <h2 className="sub-heading mb-5">
         Add New Product
       </h2>
