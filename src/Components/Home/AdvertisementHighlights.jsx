@@ -41,7 +41,7 @@ const AdvertisementHighlights = () => {
           variants={motionContainerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <motion.h2
             className="heading text-center"
