@@ -31,8 +31,8 @@ const slides = [
       "Browse items directly from registered sellers in your city. Fair prices, transparent data, and a better shopping experience for all.",
     image:
       "https://www.tbsnews.net/sites/default/files/styles/big_3/public/images/2019/12/20/karwan_bazar_5.jpg",
-    button_text: "Register as Vendor",
-    button_link: "/register",
+    button_text: "Get Started",
+    button_link: "/auth/register",
   },
 ];
 

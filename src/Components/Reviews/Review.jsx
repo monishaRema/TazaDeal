@@ -18,7 +18,7 @@ const Review = ({ reviews, productId }) => {
         <ReviewsList productId={productId} reviews={reviews} />
       )}
      <div className="mt-6 bg-white p-5 md:p-8 rounded-md shadow-sm">
-          <h2 className="sub-heading mb-3">Submit Review</h2>
+          <h2 className="sub-heading mb-3 text-primary">Submit Review</h2>
       {isEligibleRole && !hasAlreadyReviewed ? (
    <>
           <p className="text-sm text-gray-600 mb-10">

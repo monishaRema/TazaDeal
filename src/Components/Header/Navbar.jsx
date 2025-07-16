@@ -1,7 +1,5 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../../Contex/AuthContex";
-import { Tooltip } from "react-tooltip";
 import UserAvator from "../../assets/userAvator.png";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { delay, motion } from "framer-motion";
@@ -10,12 +8,15 @@ import Logout from "../Common/Logout";
 import { IoIosHeartEmpty } from "react-icons/io";
 
 import useWatchlistCount from "../../Hooks/useWatchListCount";
+import useAuth from "../../Hooks/useAuth";
+import useUserData from "../../Hooks/useUserData";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
+  const { role } = useUserData();
   const photoUrl = user && user.photoURL ? user.photoURL : UserAvator;
-  const {count} =useWatchlistCount();
+  const { count } = useWatchlistCount();
 
   const navVarient = {
     hidden: {},
@@ -127,14 +128,21 @@ const Navbar = () => {
                               Dashboard
                             </NavLink>
                           </motion.li>
-                           <motion.li
-                            onClick={() => setNavOpen(false)}
-                            variants={cardVariants}
-                          >
-                            <NavLink className={"navlink"} to="/dashboard/manage-watchlist">
-                              Watchlist ({count})
-                            </NavLink>
-                          </motion.li>
+
+                          {role == "user" && (
+                            <motion.li
+                              onClick={() => setNavOpen(false)}
+                              variants={cardVariants}
+                            >
+                              {" "}
+                              <NavLink
+                                className={"navlink"}
+                                to="/dashboard/manage-watchlist"
+                              >
+                                Watchlist ({count})
+                              </NavLink>
+                            </motion.li>
+                          )}
                         </>
                       )}
                     </motion.ul>
@@ -179,17 +187,21 @@ const Navbar = () => {
                 variants={navItemVariants}
                 className="buttons flex gap-2 md:gap-3 items-center"
               >
+                {user && role == "user" && (
+                  <p className="hidden lg:block">
+                    <Link
+                      to={"/dashboard/manage-watchlist"}
+                      className="relative"
+                    >
+                      <IoIosHeartEmpty className="text-5xl" />
+                      <span className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 text-sm">
+                        {count}
+                      </span>
+                    </Link>
+                  </p>
+                )}
                 {user && (
                   <>
-                   <p className="hidden lg:block">
-                      <Link
-                        to={"/dashboard/manage-watchlist"}
-                        className="relative"
-                      >
-                       <IoIosHeartEmpty  className="text-5xl" />
-                       <span className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 text-sm">{count}</span>
-                      </Link>
-                    </p>
                     <Link
                       className="size-10 rounded-full overflow-hidden"
                       data-tooltip-id="profile-tooltip"
@@ -200,18 +212,12 @@ const Navbar = () => {
                         className="size-full object-cover"
                       />
                     </Link>
-                   
 
                     <span className="hidden lg:block">
-                      <Link
-                        to={"/dashboard"}
-                        className="nav-btn "
-                      >
+                      <Link to={"/dashboard"} className="nav-btn ">
                         Dashboard
                       </Link>
                     </span>
-                
-
                   </>
                 )}
 

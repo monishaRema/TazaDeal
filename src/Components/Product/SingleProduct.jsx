@@ -10,9 +10,11 @@ import {
   motionCardVariants,
 } from "../../Libs/Utility";
 import AddWatchList from "../Common/AddWatchList";
+import useUserData from "../../Hooks/useUserData";
 
 const SingleProduct = ({ product }) => {
   const { user } = useAuth();
+   const { role } = useUserData();
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
@@ -48,7 +50,7 @@ const SingleProduct = ({ product }) => {
       >
         {product.category}
       </motion.span>
-      {user && (
+      {user && role == 'user' && (
         <>
           <motion.span
             variants={motionCardVariants}

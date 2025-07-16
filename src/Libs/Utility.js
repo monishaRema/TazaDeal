@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000'
+const baseURL = 'https://taza-deal.vercel.app'
 const siteTitle = "Taza Deal"
 
 const motionContainerVariants = {

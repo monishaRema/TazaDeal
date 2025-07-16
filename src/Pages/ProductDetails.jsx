@@ -52,12 +52,6 @@ const ProductDetails = () => {
     enabled: !!id,
   });
 
-  // const { mutate: addToWatchlist } = useMutation({
-  //   mutationFn: async () =>
-  //     await axiosSecure.post("/users/watchlist", { productId: id }),
-  //   onSuccess: () => ShowToast("success", "Added to watchlist"),
-  //   onError: () => ShowToast("error", "Already in watchlist or failed"),
-  // });
 
   if (isLoading) return <LoadingSpinner />;
   if (!product)
@@ -200,13 +194,7 @@ const ProductDetails = () => {
               className="flex flex-wrap gap-4 mt-4"
             >
               <AddWatchList id={id} from="details"></AddWatchList>
-              {/* <button
-                onClick={() => addToWatchlist()}
-                className="btn btn-outline btn-accent hover:text-white"
-                disabled={role === "admin" || role === "vendor"}
-              >
-                Add to Watchlist
-              </button> */}
+  
 
               {role !== "admin" && role !== "vendor" && (
                 <button
