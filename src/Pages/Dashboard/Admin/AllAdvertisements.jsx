@@ -98,7 +98,7 @@ const AllAdvertisements = () => {
                 <td>{ad.description?.slice(0, 50)}...</td>
                 <td>{format(new Date(ad.createdAt), "dd MMM yyyy")}</td>
                 <td className="capitalize">{ad.status}</td>
-                <td className="flex gap-1 flex-wrap">
+                <td className="flex gap-1 items-center">
                   <button
                     onClick={() => setSelectedAd(ad)}
                     className="btn btn-xs btn-outline"

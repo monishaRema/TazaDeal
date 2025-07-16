@@ -1,35 +1,85 @@
-import React from 'react';
-import { Outlet } from 'react-router';
-import DashboardSidebar from '../Pages/Dashboard/Sidebar/DashboardSidebar';
-import useAuth from '../Hooks/useAuth';
+import React from "react";
+import { Outlet } from "react-router";
+import DashboardSidebar from "../Pages/Dashboard/Sidebar/DashboardSidebar";
+import useAuth from "../Hooks/useAuth";
+import LOGO from "../assets/logo.svg";
+import { motion } from "framer-motion";
+const navVarient = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
+const navItemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+};
 const DashboardLayout = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   return (
-    <div className=" text-gray-800 min-h-screen flex relative border">
+    <>
+      <motion.header
+        initial="hidden"
+        animate="show"
+        variants={navVarient}
+        className=" bg-white/85 backdrop-blur-md px-5 py-4 flex gap-5 items-center justify-between"
+      >
+        <motion.div
+          variants={navItemVariants}
+          className="flex gap-1 items-center"
+        >
+          <motion.img
+            variants={navItemVariants}
+            src={LOGO}
+            alt="Taza Deal Logo"
+            className="size-10 md:size-15 max-w-full"
+          ></motion.img>
+          <motion.h3
+            variants={navItemVariants}
+            className="text-xl md:text-2xl font-bold flex flex-col gap-1"
+          >
+            <span className="text-primary">Taza</span>
+            <span className="text-accent -mt-2">Deal</span>
+          </motion.h3>
+        </motion.div>
+
+        <motion.div variants={navItemVariants} className="flex gap-5">
+          <h1 className="text-lg font-semibold">
+            Welcome back, {user?.displayName}
+          </h1>
+          <img
+            src={user?.photoURL}
+            alt="avatar"
+            className="size-10 rounded-full object-cover"
+          />
+        </motion.div>
+      </motion.header>
+      <div className="flex overflow-hidden h-screen">
         {/* Sidebar */}
-        <aside className="w-15 md:w-65 bg-white fixed top-0 bottom-0 left-0 z-40 px-2 md:px-5">
+        <aside className="w-15 md:w-65 bg-white sticky top-0 left-0 h-screen overflow-y-auto  z-40 px-2 md:px-5">
           <DashboardSidebar />
         </aside>
-        {/* Main content */}
-        <main className="w-full pl-15 md:pl-65 transition-all duration-300 bg-secondary relative">
-          {/* Header */}
-          <header className="sticky top-0 z-30 bg-white/85 backdrop-blur-md px-5 py-4 flex gap-5 items-center justify-between">
-            
-            <h1 className="text-lg font-semibold">Welcome back, {user?.displayName}</h1>
-            <img src={user?.photoURL} alt="avatar" className='size-10 rounded-full object-cover'/>
-            
-          </header>
 
-          {/* Main Outlet */}
-          <section className="p-4 md:p-6 mb-15">
+        {/* Main Content Area */}
+        <main className="flex-1 flex flex-col bg-secondary overflow-y-auto p-6 hide-scrollbar">
             <Outlet />
-          </section>
-          <footer className="w-full bg-white px-6 h-15 flex items-center justify-center text-center fixed bottom-0 left-5 right-5 rounded-md">
-                <p>All the right reserved TazaDeal.</p>
-          </footer>
         </main>
-    </div>
+      </div>
+
+      <footer className="w-full bg-white px-6 py-5 text-center">
+        <p>All the right reserved TazaDeal.</p>
+      </footer>
+    </>
   );
 };
 

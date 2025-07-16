@@ -97,7 +97,7 @@ const MyProducts = () => {
                       )}
                   </div>
                 </td>
-                <td className="flex flex-wrap gap-2">
+                <td className="flex gap-2 items-center">
                   <button
                     onClick={() => setSelectedProduct(product)}
                     className="btn btn-xs btn-outline"

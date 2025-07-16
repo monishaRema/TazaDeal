@@ -131,7 +131,7 @@ const ManageProducts = () => {
                       )}
                   </div>
                 </td>
-                <td className="flex flex-wrap gap-1">
+                <td className="flex gap-1 items-center">
                   <button
                     className="btn btn-xs btn-outline"
                     onClick={() => setSelectedProduct(product)}

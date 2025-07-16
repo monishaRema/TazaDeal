@@ -89,7 +89,7 @@ const MyAdvertisements = () => {
                 </td>
                 <td>{format(new Date(ad.createdAt), "dd MMM yyyy")}</td>
                 <td className="capitalize">{ad.status}</td>
-                <td className="flex flex-wrap gap-2">
+                <td className="flex items-center gap-2">
                   <button
                     onClick={() => setSelectedAd(ad)}
                     className="btn btn-xs btn-outline"

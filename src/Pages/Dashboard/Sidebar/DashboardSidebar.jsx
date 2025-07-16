@@ -78,7 +78,7 @@ const DashboardSidebar = () => {
       variants={navVarient}
       className="w-full py-2 md:py-5 flex flex-col gap-2 h-full"
     >
-       <motion.li variants={navItemVariants} className="mb-5">
+       {/* <motion.li variants={navItemVariants} className="mb-5">
          <div className='flex gap-1 items-center'>
                     <img src={LOGO} alt="Taza Deal Logo" className='size-10 md:size-15 max-w-full' />
                     <h3 className='text-2xl font-bold hidden md:flex flex-col '>
@@ -86,7 +86,7 @@ const DashboardSidebar = () => {
                         <span className="text-accent -mt-2">Deal</span>
                     </h3>
                 </div>
-       </motion.li>
+       </motion.li> */}
       <SidebarLink to="/" icon={<FaHome />} label="Home" />
       <SidebarLink to="/dashboard" icon={<FaChartBar />} label="Dashboard" />
 
