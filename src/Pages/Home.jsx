@@ -8,6 +8,7 @@ import WhyTrustUs from "../Components/Home/WhyTrustUs ";
 import MarketInsights from "../Components/Home/MarketInsights";
 import Newsletter from "../Components/Home/Newsletter";
 import HowItWorks from "../Components/Home/HowItWorks";
+import Reviews from "../Components/Home/Reviews";
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
       <HowItWorks></HowItWorks>
       <AdvertisementHighlights></AdvertisementHighlights>
       <WhyTrustUs></WhyTrustUs>
+      <Reviews></Reviews>
       <Newsletter></Newsletter>
       <MarketInsights></MarketInsights>
     </>
